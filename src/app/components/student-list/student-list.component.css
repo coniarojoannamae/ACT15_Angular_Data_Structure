@@ -1,0 +1,14 @@
+h2, h3 {
+  color: #065451;
+}
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  margin-bottom: 10px;
+}
+button {
+  margin-left: 10px;
+}
