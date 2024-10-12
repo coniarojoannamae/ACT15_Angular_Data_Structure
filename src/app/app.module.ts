@@ -10,6 +10,7 @@ import {EmployeeListComponent} from "./components/employee-list/employee-list.co
 import {FruitListComponent} from "./components/fruit-list/fruit-list.component";
 import {CourseListComponent} from "./components/course-list/course-list.component";
 import {BookListComponent} from "./components/book-list/book-list.component";
+import {CityListComponent} from "./components/city-list/city-list.component";
 
 const routes: Routes = [
   { path: 'StudentList', component: StudentListComponent },
@@ -17,7 +18,7 @@ const routes: Routes = [
   { path: 'FruitList', component: FruitListComponent },
   { path: 'CourseList', component: CourseListComponent },
   { path: 'BookList', component: BookListComponent },
-
+  { path: 'CityList', component: CityListComponent },
 
 
 ];
@@ -38,6 +39,7 @@ const routes: Routes = [
     FruitListComponent,
     CourseListComponent,
     BookListComponent,
+    CityListComponent,
   ],
 
   bootstrap: [

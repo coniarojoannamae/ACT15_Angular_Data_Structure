@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="city-list.component.css">
+</head>
+<body>
+<div class="container">
+  <h2 class="mt-4">Cities Company Operates In</h2>
+
+  <table class="table table-bordered table-striped mt-3">
+    <thead class="thead-dark">
+    <tr>
+      <th>City Name</th>
+      <th>Country</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let city of cities">
+      <td>{{ city.name }}</td>
+      <td>{{ city.country }}</td>
+      <td>
+        <button class="btn btn-outline-danger" (click)="removeCity(city.name)">Remove</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <h3 class="mt-4">Add a New City</h3>
+  <form (ngSubmit)="addCity()" class="form-inline mt-3">
+    <div class="form-group mb-2">
+      <input type="text" [(ngModel)]="newCity.name" name="name" placeholder="City Name" class="form-control mr-2" required>
+    </div>
+    <div class="form-group mb-2">
+      <input type="text" [(ngModel)]="newCity.country" name="country" placeholder="Country" class="form-control mr-2" required>
+    </div>
+    <button type="submit" class="btn btn-outline-success">Add City</button>
+  </form>
+</div>
+
+</body>
+</html>
