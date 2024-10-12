@@ -6,9 +6,11 @@ import {CommonModule} from "@angular/common";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {AppComponent} from "./app.component";
 import {StudentListComponent} from "./components/student-list/student-list.component";
+import {EmployeeListComponent} from "./components/employee-list/employee-list.component";
 
 const routes: Routes = [
   { path: 'StudentList', component: StudentListComponent },
+  { path: 'EmployeeList', component: EmployeeListComponent },
 
 ];
 
@@ -24,6 +26,7 @@ const routes: Routes = [
   declarations: [
     AppComponent,
     StudentListComponent,
+    EmployeeListComponent
   ],
 
   bootstrap: [

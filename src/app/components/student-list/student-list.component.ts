@@ -8,8 +8,8 @@ import { Student } from './student.model';
 })
 export class StudentListComponent {
   students: Student[] = [
-    { id: 1, name: 'Jana Coniaro', course: 'BS IT' },
-    { id: 2, name: 'Mhae Madelar', course: 'BS CS' }
+    { id: 1, name: 'Jana Coniaro', course: 'BSIT' },
+    { id: 2, name: 'Mhae Madelar', course: 'BSCS' }
   ];
 
   newStudent: Student = { id: 0, name: '', course: '' };
