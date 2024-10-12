@@ -21,7 +21,6 @@ export class StudentListComponent {
     this.students.push(student);
     this.newStudent = { id: 0, name: '', course: '' }; // Reset the form
   }
-
   removeStudent(id: number) {
     this.students = this.students.filter(student => student.id !== id);
   }

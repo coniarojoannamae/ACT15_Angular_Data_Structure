@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import {Fruit} from "./fruit.model";
 
 @Component({
   selector: 'app-fruit-list',

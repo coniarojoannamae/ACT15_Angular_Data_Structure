@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Course} from "./course.model";
 
 @Component({
   selector: 'app-course-list',
@@ -12,7 +11,6 @@ export class CourseListComponent {
     { name: 'Communication', description: 'emphasizes communication theory and practice in the creation, presentation, and evaluation of coherent messages.' },
     { name: 'Information Technology', description: 'Focus on computing technology and software development' },
   ];
-
   newCourse = { name: '', description: '' };
 
   addCourse() {
