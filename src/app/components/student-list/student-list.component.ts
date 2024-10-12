@@ -1,3 +1,4 @@
+// student.component.css
 import { Component } from '@angular/core';
 import { Student } from './student.model';
 

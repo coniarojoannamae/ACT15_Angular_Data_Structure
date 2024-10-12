@@ -8,11 +8,14 @@ import {AppComponent} from "./app.component";
 import {StudentListComponent} from "./components/student-list/student-list.component";
 import {EmployeeListComponent} from "./components/employee-list/employee-list.component";
 import {FruitListComponent} from "./components/fruit-list/fruit-list.component";
+import {CourseListComponent} from "./components/course-list/course-list.component";
 
 const routes: Routes = [
   { path: 'StudentList', component: StudentListComponent },
   { path: 'EmployeeList', component: EmployeeListComponent },
   { path: 'FruitList', component: FruitListComponent },
+  { path: 'CourseList', component: CourseListComponent },
+
 
 
 ];
@@ -31,6 +34,7 @@ const routes: Routes = [
     StudentListComponent,
     EmployeeListComponent,
     FruitListComponent,
+    CourseListComponent,
   ],
 
   bootstrap: [
