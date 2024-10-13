@@ -10,8 +10,6 @@ export class GameListComponent {
   games: { title: string, genre: string, releaseYear: number }[] = [
     { title: 'The Legend of Zelda: Breath of the Wild', genre: 'Action-Adventure', releaseYear: 2017 },
     { title: 'Cyberpunk 2077', genre: 'RPG', releaseYear: 2020 },
-    { title: 'Super Mario Odyssey', genre: 'Platformer', releaseYear: 2017 },
-    { title: 'The Witcher 3: Wild Hunt', genre: 'RPG', releaseYear: 2015 }
   ];
 
   // Initialize new game with default values

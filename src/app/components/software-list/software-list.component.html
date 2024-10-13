@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="software-list.component.css">
+  <title>Software List</title>
+</head>
+<body>
+<div class="container">
+  <!-- Form to Add New Software -->
+  <h3 class="mt-4">Add New Software</h3>
+  <form (ngSubmit)="addSoftware()" class="form-inline mt-3">
+    <div class="form-group mb-2">
+      <input type="text" [(ngModel)]="newSoftware.name" name="name" placeholder="Software Name" class="form-control mr-2" required>
+    </div>
+    <div class="form-group mb-2">
+      <input type="text" [(ngModel)]="newSoftware.version" name="version" placeholder="Version" class="form-control mr-2" required>
+    </div>
+    <div class="form-group mb-2">
+      <input type="date" [(ngModel)]="newSoftware.installedDate" name="installedDate" class="form-control mr-2" required>
+    </div>
+    <button type="submit" class="btn btn-outline-success">Add Software</button>
+  </form>
+
+  <!-- Table to Display the Software -->
+  <h2 class="mt-4">List of Installed Software</h2>
+  <div class="mt-4">
+    <table class="table table-bordered table-striped">
+      <thead class="thead-dark">
+      <tr>
+        <th>Software Name</th>
+        <th>Version</th>
+        <th>Installed Date</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let software of softwareList">
+        <td>{{ software.name }}</td>
+        <td>{{ software.version }}</td>
+        <td>{{ software.installedDate }}</td>
+        <td>
+          <button class="btn btn-outline-danger" (click)="removeSoftware(software.name)">Remove</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+</body>
+</html>

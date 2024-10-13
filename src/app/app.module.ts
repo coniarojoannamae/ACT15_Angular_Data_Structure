@@ -22,6 +22,7 @@ import {AnimalListComponent} from "./components/animal-list/animal-list.componen
 import {ToolListComponent} from "./components/tool-list/tool-list.component";
 import {LanguageListComponent} from "./components/language-list/language-list.component";
 import {GameListComponent} from "./components/game-list/game-list.component";
+import {SoftwareListComponent} from "./components/software-list/software-list.component";
 
 const routes: Routes = [
   { path: 'StudentList', component: StudentListComponent },
@@ -41,6 +42,7 @@ const routes: Routes = [
   { path: 'ToolList', component: ToolListComponent },
   { path: 'LanguageList', component: LanguageListComponent },
   { path: 'GameList', component: GameListComponent },
+  { path: 'SoftwareList', component: SoftwareListComponent },
 
 
 ];
@@ -74,6 +76,7 @@ const routes: Routes = [
     ToolListComponent,
     LanguageListComponent,
     GameListComponent,
+    SoftwareListComponent,
   ],
 
   bootstrap: [
