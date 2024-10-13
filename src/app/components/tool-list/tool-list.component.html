@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="tool-list.component.css">
+  <title>Tool List</title>
+</head>
+<body>
+<div class="container">
+  <h2 class="mt-4">Tools Used in the Workshop</h2>
+
+  <!-- Form to Add New Tool -->
+  <h3 class="mt-4">Add a New Tool</h3>
+  <form (ngSubmit)="addTool()" class="form-inline mt-3">
+    <div class="form-group mb-2">
+      <input type="text" [(ngModel)]="newTool.name" name="name" placeholder="Tool Name" class="form-control mr-2" required>
+    </div>
+    <div class="form-group mb-2">
+      <input type="text" [(ngModel)]="newTool.type" name="type" placeholder="Tool Type" class="form-control mr-2" required>
+    </div>
+    <div class="form-group mb-2">
+      <input type="number" [(ngModel)]="newTool.quantity" name="quantity" placeholder="Quantity" class="form-control mr-2" required>
+    </div>
+    <button type="submit" class="btn btn-outline-success">Add Tool</button>
+  </form>
+
+  <!-- Table to Display the Tools -->
+  <div class="mt-4">
+    <table class="table table-bordered table-striped">
+      <thead class="thead-dark">
+      <tr>
+        <th>Tool Name</th>
+        <th>Tool Type</th>
+        <th>Quantity</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let tool of tools">
+        <td>{{ tool.name }}</td>
+        <td>{{ tool.type }}</td>
+        <td>{{ tool.quantity }}</td>
+        <td>
+          <button class="btn btn-outline-danger" (click)="removeTool(tool.name)">Remove</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+</body>
+</html>
