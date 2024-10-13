@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="language-list.component.css">
+  <title>Language List</title>
+</head>
+<body>
+<div class="container">
+  <!-- Form to Add New Language -->
+  <h3 class="mt-4">Add a New Language</h3>
+  <form (ngSubmit)="addLanguage()" class="form-inline mt-3">
+    <div class="form-group mb-2">
+      <input type="text" [(ngModel)]="newLanguage.name" name="name" placeholder="Language Name" class="form-control mr-2" required>
+    </div>
+    <div class="form-group mb-2">
+      <input type="text" [(ngModel)]="newLanguage.paradigm" name="paradigm" placeholder="Paradigm" class="form-control mr-2" required>
+    </div>
+    <div class="form-group mb-2">
+      <input type="number" [(ngModel)]="newLanguage.releasedYear" name="releasedYear" placeholder="Released Year" class="form-control mr-2" required>
+    </div>
+    <button type="submit" class="btn btn-outline-success">Add Language</button>
+  </form>
+
+  <!-- Table to Display the Languages -->
+  <h2 class="mt-4">List of Programming Languages</h2>
+  <div class="mt-4">
+    <table class="table table-bordered table-striped">
+      <thead class="thead-dark">
+      <tr>
+        <th>Language Name</th>
+        <th>Paradigm</th>
+        <th>Released Year</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let language of languages">
+        <td>{{ language.name }}</td>
+        <td>{{ language.paradigm }}</td>
+        <td>{{ language.releasedYear }}</td>
+        <td>
+          <button class="btn btn-outline-danger" (click)="removeLanguage(language.name)">Remove</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+</body>
+</html>
