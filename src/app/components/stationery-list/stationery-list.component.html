@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="stationery-list.component.css">
+  <title>Stationery List</title>
+</head>
+<body>
+<div class="container">
+  <h3 class="mt-4">Add New Stationery Item</h3>
+  <form (ngSubmit)="addStationeryItem()" class="form-inline mt-3">
+    <div class="form-group mb-2">
+      <input type="text" [(ngModel)]="newStationeryItem.itemName" name="itemName" placeholder="Item Name" class="form-control mr-2" required>
+    </div>
+    <div class="form-group mb-2">
+      <input type="number" [(ngModel)]="newStationeryItem.quantity" name="quantity" placeholder="Quantity" class="form-control mr-2" required min="1">
+    </div>
+    <div class="form-group mb-2">
+      <input type="text" [(ngModel)]="newStationeryItem.category" name="category" placeholder="Category" class="form-control mr-2" required>
+    </div>
+    <button type="submit" class="btn btn-outline-success">Add Item</button>
+  </form>
+
+  <h2 class="mt-4">Office Stationery List</h2>
+  <div class="mt-4">
+    <table class="table table-bordered table-striped">
+      <thead class="thead-dark">
+      <tr>
+        <th>Item Name</th>
+        <th>Quantity</th>
+        <th>Category</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let item of stationeryList">
+        <td>{{ item.itemName }}</td>
+        <td>{{ item.quantity }}</td>
+        <td>{{ item.category }}</td>
+        <td>
+          <button class="btn btn-outline-danger" (click)="removeStationeryItem(item.itemName)">Remove</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+</body>
+</html>
