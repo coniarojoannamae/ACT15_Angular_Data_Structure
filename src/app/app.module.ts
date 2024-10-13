@@ -16,6 +16,7 @@ import {CarModelListComponent} from "./components/car-model-list/car-model-list.
 import {ProductListComponent} from "./components/product-list/product-list.component";
 import {SubjectListComponent} from "./components/subject-list/subject-list.component";
 import {CountryListComponent} from "./components/country-list/country-list.component";
+import {SportsListComponent} from "./components/sports-list/sports-list.component";
 
 const routes: Routes = [
   { path: 'StudentList', component: StudentListComponent },
@@ -29,6 +30,7 @@ const routes: Routes = [
   { path: 'ProductList', component: ProductListComponent },
   { path: 'SubjectList', component: SubjectListComponent },
   { path: 'CountryList', component: CountryListComponent },
+  { path: 'SportsList', component: SportsListComponent },
 
 
 ];
@@ -56,6 +58,7 @@ const routes: Routes = [
     ProductListComponent,
     SubjectListComponent,
     CountryListComponent,
+    SportsListComponent
   ],
 
   bootstrap: [
