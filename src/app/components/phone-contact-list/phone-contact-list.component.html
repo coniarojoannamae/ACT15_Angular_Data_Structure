@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="phone-contact-list.component.css">
+  <title>Phone Contact List</title>
+</head>
+<body>
+<div class="container">
+  <!-- Form to Add New Contact -->
+  <h3 class="mt-4">Add New Contact</h3>
+  <form (ngSubmit)="addContact()" class="form-inline mt-3">
+    <div class="form-group mb-2">
+      <input type="text" [(ngModel)]="newContact.name" name="name" placeholder="Name" class="form-control mr-2" required>
+    </div>
+    <div class="form-group mb-2">
+      <input type="text" [(ngModel)]="newContact.phoneNumber" name="phoneNumber" placeholder="Phone Number" class="form-control mr-2" required>
+    </div>
+    <div class="form-group mb-2">
+      <input type="email" [(ngModel)]="newContact.email" name="email" placeholder="Email" class="form-control mr-2" required>
+    </div>
+    <button type="submit" class="btn btn-outline-success">Add Contact</button>
+  </form>
+
+  <!-- Table to Display the Contacts -->
+  <h2 class="mt-4">Phone Contacts</h2>
+  <div class="mt-4">
+    <table class="table table-bordered table-striped">
+      <thead class="thead-dark">
+      <tr>
+        <th>Name</th>
+        <th>Phone Number</th>
+        <th>Email</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let contact of contacts">
+        <td>{{ contact.name }}</td>
+        <td>{{ contact.phoneNumber }}</td>
+        <td>{{ contact.email }}</td>
+        <td>
+          <button class="btn btn-outline-danger" (click)="removeContact(contact.name)">Remove</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</body>
+</html>
+
