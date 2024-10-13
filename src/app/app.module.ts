@@ -29,6 +29,7 @@ import {FoodMenuComponent} from "./components/food-menu/food-menu.component";
 import {GroceryListComponent} from "./components/grocery-list/grocery-list.component";
 import {ClassroomListComponent} from "./components/classroom-list/classroom-list.component";
 import {InventoryListComponent} from "./components/inventory-list/inventory-list.component";
+import {LectureListComponent} from "./components/lecture-list/lecture-list.component";
 
 const routes: Routes = [
   { path: 'StudentList', component: StudentListComponent },
@@ -55,6 +56,7 @@ const routes: Routes = [
   { path: 'GroceryList', component: GroceryListComponent},
   { path: 'ClassroomList', component: ClassroomListComponent},
   { path: 'InventoryList', component: InventoryListComponent},
+  { path: 'LectureList', component: LectureListComponent},
 
 
 ];
@@ -95,6 +97,7 @@ const routes: Routes = [
     GroceryListComponent,
     ClassroomListComponent,
     InventoryListComponent,
+    LectureListComponent,
   ],
 
   bootstrap: [

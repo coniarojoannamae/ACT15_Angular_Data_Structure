@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="lecture-list.component.css">
+  <title>Lecture List</title>
+</head>
+<body>
+<div class="container">
+  <h3 class="mt-4">Add New Lecture</h3>
+  <form (ngSubmit)="addLecture()" class="form-inline mt-3">
+    <div class="form-group mb-2">
+      <input type="text" [(ngModel)]="newLecture.lectureName" name="lectureName" placeholder="Lecture Name" class="form-control mr-2" required>
+    </div>
+    <div class="form-group mb-2">
+      <input type="date" [(ngModel)]="newLecture.date" name="date" placeholder="Date" class="form-control mr-2" required>
+    </div>
+    <div class="form-group mb-2">
+      <input type="time" [(ngModel)]="newLecture.time" name="time" placeholder="Time" class="form-control mr-2" required>
+    </div>
+    <div class="form-group mb-2">
+      <input type="text" [(ngModel)]="newLecture.topic" name="topic" placeholder="Topic" class="form-control mr-2" required>
+    </div>
+    <button type="submit" class="btn btn-outline-success">Add Lecture</button>
+  </form>
+
+  <h2 class="mt-4">Scheduled Lectures</h2>
+  <div class="mt-4">
+    <table class="table table-bordered table-striped">
+      <thead class="thead-dark">
+      <tr>
+        <th>Lecture Name</th>
+        <th>Date</th>
+        <th>Time</th>
+        <th>Topic</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let lecture of lectures">
+        <td>{{ lecture.lectureName }}</td>
+        <td>{{ lecture.date }}</td>
+        <td>{{ lecture.time }}</td>
+        <td>{{ lecture.topic }}</td>
+        <td>
+          <button class="btn btn-outline-danger" (click)="removeLecture(lecture.lectureName)">Remove</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</body>
+</html>
