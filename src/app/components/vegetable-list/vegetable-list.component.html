@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="vegetable-list.component.css">
+  <title>Vegetable List</title>
+</head>
+<body>
+<div class="container">
+  <!-- Form to Add New Vegetable -->
+  <h3 class="mt-4">Add a New Vegetable</h3>
+  <form (ngSubmit)="addVegetable()" class="form-inline mt-3">
+    <div class="form-group mb-2">
+      <input type="text" [(ngModel)]="newVegetable.name" name="name" placeholder="Vegetable Name" class="form-control mr-2" required>
+    </div>
+    <div class="form-group mb-2">
+      <input type="number" [(ngModel)]="newVegetable.pricePerKg" name="pricePerKg" placeholder="Price per Kg" class="form-control mr-2" required>
+    </div>
+    <button type="submit" class="btn btn-outline-success">Add Vegetable</button>
+  </form>
+
+  <!-- Table to Display the Vegetables -->
+  <h2 class="mt-4">Vegetables Available at the Grocery Store</h2>
+  <div class="mt-4">
+    <table class="table table-bordered table-striped">
+      <thead class="thead-dark">
+      <tr>
+        <th>Vegetable Name</th>
+        <th>Price per Kg</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let vegetable of vegetables">
+        <td>{{ vegetable.name }}</td>
+        <td>{{ vegetable.pricePerKg }} PHP</td>
+        <td>
+          <button class="btn btn-outline-danger" (click)="removeVegetable(vegetable.name)">Remove</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+</body>
+</html>
