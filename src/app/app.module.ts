@@ -18,6 +18,7 @@ import {SubjectListComponent} from "./components/subject-list/subject-list.compo
 import {CountryListComponent} from "./components/country-list/country-list.component";
 import {SportsListComponent} from "./components/sports-list/sports-list.component";
 import {VegetableListComponent} from "./components/vegetable-list/vegetable-list.component";
+import {AnimalListComponent} from "./components/animal-list/animal-list.component";
 
 const routes: Routes = [
   { path: 'StudentList', component: StudentListComponent },
@@ -33,7 +34,7 @@ const routes: Routes = [
   { path: 'CountryList', component: CountryListComponent },
   { path: 'SportsList', component: SportsListComponent },
   { path: 'VegetableList', component: VegetableListComponent },
-
+  { path: 'AnimalList', component: AnimalListComponent },
 
 ];
 
@@ -61,7 +62,8 @@ const routes: Routes = [
     SubjectListComponent,
     CountryListComponent,
     SportsListComponent,
-    VegetableListComponent
+    VegetableListComponent,
+    AnimalListComponent,
   ],
 
   bootstrap: [

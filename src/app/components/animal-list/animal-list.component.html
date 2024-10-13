@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="animal-list.component.css">
+  <title> List</title>
+</head>
+<body>
+<div class="container">
+  <!-- Form to Add New Animal -->
+  <h3 class="mt-4">Add a New Animal</h3>
+  <form (ngSubmit)="addAnimal()" class="form-inline mt-3">
+    <div class="form-group mb-2">
+      <input type="text" [(ngModel)]="newAnimal.name" name="name" placeholder="Animal Name" class="form-control mr-2" required>
+    </div>
+    <div class="form-group mb-2">
+      <input type="text" [(ngModel)]="newAnimal.species" name="species" placeholder="Species" class="form-control mr-2" required>
+    </div>
+    <div class="form-group mb-2">
+      <input type="number" [(ngModel)]="newAnimal.age" name="age" placeholder="Age" class="form-control mr-2" required>
+    </div>
+    <button type="submit" class="btn btn-outline-success">Add Animal</button>
+  </form>
+
+  <!-- Table to Display the Animals -->
+  <h2 class="mt-4">Animals in the Zoo</h2>
+  <div class="mt-4">
+    <table class="table table-bordered table-striped">
+      <thead class="thead-dark">
+      <tr>
+        <th>Animal Name</th>
+        <th>Species</th>
+        <th>Age</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let animal of animals">
+        <td>{{ animal.name }}</td>
+        <td>{{ animal.species }}</td>
+        <td>{{ animal.age }}</td>
+        <td>
+          <button class="btn btn-outline-danger" (click)="removeAnimal(animal.name)">Remove</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+</body>
+</html>
