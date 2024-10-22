@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="mobile-app-list.component.css">
+  <title>Mobile App List</title>
+</head>
+<body>
+<div class="container">
+  <!-- Form to Add New App -->
+  <h3 class="mt-4">Add New Mobile App</h3>
+  <form (ngSubmit)="addApp()" class="form-inline mt-3">
+    <div class="form-group mb-2">
+      <input type="text" [(ngModel)]="newApp.appName" name="appName" placeholder="App Name" class="form-control mr-2" required>
+    </div>
+    <div class="form-group mb-2">
+      <input type="text" [(ngModel)]="newApp.category" name="category" placeholder="Category" class="form-control mr-2" required>
+    </div>
+    <div class="form-group mb-2">
+      <input type="text" [(ngModel)]="newApp.developer" name="developer" placeholder="Developer" class="form-control mr-2" required>
+    </div>
+    <div class="form-group mb-2">
+      <input type="number" [(ngModel)]="newApp.size" name="size" placeholder="Size (MB)" class="form-control mr-2" required min="1">
+    </div>
+    <button type="submit" class="btn btn-outline-success">Add App</button>
+  </form>
+
+  <h2 class="mt-4">Mobile App List</h2>
+  <!-- Table to Display the Mobile Apps List -->
+  <div class="mt-4">
+    <table class="table table-bordered table-striped">
+      <thead class="thead-dark">
+      <tr>
+        <th>App Name</th>
+        <th>Category</th>
+        <th>Developer</th>
+        <th>Size (MB)</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let app of appList">
+        <td>{{ app.appName }}</td>
+        <td>{{ app.category }}</td>
+        <td>{{ app.developer }}</td>
+        <td>{{ app.size }}</td>
+        <td>
+          <button class="btn btn-outline-danger" (click)="removeApp(app.appName)">Remove</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</body>
+</html>
