@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="destination-list.component.css">
+  <h2 class="mt-4">Travel Destination List</h2>
+  <title>Travel Destination List</title>
+</head>
+<body>
+<div class="container">
+  <h2 class="mt-4">Travel Destination List</h2>
+
+  <!-- Form to Add New Destination -->
+  <h3 class="mt-4">Add New Destination</h3>
+  <form (ngSubmit)="addDestination()" class="form-inline mt-3">
+    <div class="form-group mb-2">
+      <input type="text" [(ngModel)]="newDestination.destinationName" name="destinationName" placeholder="Destination Name" class="form-control mr-2" required>
+    </div>
+    <div class="form-group mb-2">
+      <input type="text" [(ngModel)]="newDestination.country" name="country" placeholder="Country" class="form-control mr-2" required>
+    </div>
+    <div class="form-group mb-2">
+      <input type="text" [(ngModel)]="newDestination.attractions" name="attractions" placeholder="Attractions" class="form-control mr-2" required>
+    </div>
+    <button type="submit" class="btn btn-outline-success">Add Destination</button>
+  </form>
+
+  <!-- Table to Display the Destination List -->
+  <div class="mt-4">
+    <table class="table table-bordered table-striped">
+      <thead class="thead-dark">
+      <tr>
+        <th>Destination Name</th>
+        <th>Country</th>
+        <th>Attractions</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let destination of destinationList">
+        <td>{{ destination.destinationName }}</td>
+        <td>{{ destination.country }}</td>
+        <td>{{ destination.attractions }}</td>
+        <td>
+          <button class="btn btn-outline-danger" (click)="removeDestination(destination.destinationName)">Remove</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+</body>
+</html>
