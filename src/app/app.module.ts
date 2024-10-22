@@ -34,6 +34,9 @@ import {StationeryListComponent} from "./components/stationery-list/stationery-l
 import {FlowerListComponent} from "./components/flower-list/flower-list.component";
 import {DestinationListComponent} from "./components/destination-list/destination-list.component";
 import {LaptopListComponent} from "./components/laptop-list/laptop-list.component";
+import {
+  LaptopSpecificationsListComponent
+} from "./components/laptop-specifications-list/laptop-specifications-list.component";
 
 const routes: Routes = [
   { path: 'StudentList', component: StudentListComponent },
@@ -65,6 +68,8 @@ const routes: Routes = [
   { path: 'FlowerList', component:FlowerListComponent},
   { path: 'DestinationList', component:DestinationListComponent},
   { path: 'LaptopList', component:LaptopListComponent},
+  { path: 'LaptopSpecificationsList', component:LaptopSpecificationsListComponent},
+
 ];
 
 @NgModule({
@@ -108,6 +113,7 @@ const routes: Routes = [
     FlowerListComponent,
     DestinationListComponent,
     LaptopListComponent,
+    LaptopSpecificationsListComponent,
   ],
 
   bootstrap: [

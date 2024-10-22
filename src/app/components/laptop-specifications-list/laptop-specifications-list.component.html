@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="laptop-specifications-list.component.css">
+  <title>Laptop Specification List</title>
+</head>
+<body>
+<div class="container">
+  <!-- Form to Add New Laptop -->
+  <h3 class="mt-4">Add New Laptop</h3>
+  <form (ngSubmit)="addLaptop()" class="form-inline mt-3">
+    <div class="form-group mb-2">
+      <input type="text" [(ngModel)]="newLaptop.brand" name="brand" placeholder="Brand" class="form-control mr-2" required>
+    </div>
+    <div class="form-group mb-2">
+      <input type="text" [(ngModel)]="newLaptop.model" name="model" placeholder="Model" class="form-control mr-2" required>
+    </div>
+    <div class="form-group mb-2">
+      <input type="text" [(ngModel)]="newLaptop.processor" name="processor" placeholder="Processor" class="form-control mr-2" required>
+    </div>
+    <div class="form-group mb-2">
+      <input type="text" [(ngModel)]="newLaptop.ram" name="ram" placeholder="RAM" class="form-control mr-2" required>
+    </div>
+    <div class="form-group mb-2">
+      <input type="text" [(ngModel)]="newLaptop.storage" name="storage" placeholder="Storage" class="form-control mr-2" required>
+    </div>
+    <div class="form-group mb-2">
+      <input type="number" [(ngModel)]="newLaptop.price" name="price" placeholder="Price ($)" class="form-control mr-2" required min="1">
+    </div>
+    <button type="submit" class="btn btn-outline-success">Add Laptop</button>
+  </form>
+
+  <h2 class="mt-4">Laptop Specifications List</h2>
+  <!-- Table to Display the Laptop Specifications List -->
+  <div class="mt-4">
+    <table class="table table-bordered table-striped">
+      <thead class="thead-dark">
+      <tr>
+        <th>Brand</th>
+        <th>Model</th>
+        <th>Processor</th>
+        <th>RAM</th>
+        <th>Storage</th>
+        <th>Price ($)</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let laptop of laptopList">
+        <td>{{ laptop.brand }}</td>
+        <td>{{ laptop.model }}</td>
+        <td>{{ laptop.processor }}</td>
+        <td>{{ laptop.ram }}</td>
+        <td>{{ laptop.storage }}</td>
+        <td>{{ laptop.price }}</td>
+        <td>
+          <button class="btn btn-outline-danger" (click)="removeLaptop(laptop.model)">Remove</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+</body>
+</html>
