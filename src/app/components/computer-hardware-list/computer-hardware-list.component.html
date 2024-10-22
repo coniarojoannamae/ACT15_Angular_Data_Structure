@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="computer-hardware-list.component.css">
+  <title>Computer Hardware List</title>
+</head>
+<body>
+<div class="container">
+  <!-- Form to Add New Hardware Component -->
+  <h3 class="mt-4">Add New Hardware Component</h3>
+  <form (ngSubmit)="addHardware()" class="form-inline mt-3">
+    <div class="form-group mb-2">
+      <input type="text" [(ngModel)]="newHardware.componentName" name="componentName" placeholder="Component Name" class="form-control mr-2" required>
+    </div>
+    <div class="form-group mb-2">
+      <input type="text" [(ngModel)]="newHardware.type" name="type" placeholder="Type (e.g., Processor, RAM)" class="form-control mr-2" required>
+    </div>
+    <div class="form-group mb-2">
+      <input type="text" [(ngModel)]="newHardware.brand" name="brand" placeholder="Brand" class="form-control mr-2" required>
+    </div>
+    <div class="form-group mb-2">
+      <input type="number" [(ngModel)]="newHardware.price" name="price" placeholder="Price ($)" class="form-control mr-2" required min="1">
+    </div>
+    <button type="submit" class="btn btn-outline-success">Add Hardware</button>
+  </form>
+  <h2 class="mt-4">Computer Hardware List</h2>
+  <!-- Table to Display the Hardware Components List -->
+  <div class="mt-4">
+    <table class="table table-bordered table-striped">
+      <thead class="thead-dark">
+      <tr>
+        <th>Component Name</th>
+        <th>Type</th>
+        <th>Brand</th>
+        <th>Price ($)</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let hardware of hardwareList">
+        <td>{{ hardware.componentName }}</td>
+        <td>{{ hardware.type }}</td>
+        <td>{{ hardware.brand }}</td>
+        <td>{{ hardware.price }}</td>
+        <td>
+          <button class="btn btn-outline-danger" (click)="removeHardware(hardware.componentName)">Remove</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</body>
+</html>
