@@ -10,7 +10,6 @@ export class VideoListComponent {
   videoList: { videoTitle: string, category: string, duration: number, director: string }[] = [
     { videoTitle: 'Inception', category: 'Science Fiction', duration: 148, director: 'Christopher Nolan' },
     { videoTitle: 'The Godfather', category: 'Crime', duration: 175, director: 'Francis Ford Coppola' },
-    { videoTitle: 'Spirited Away', category: 'Animation', duration: 125, director: 'Hayao Miyazaki' }
   ];
 
   // Initialize new video with default values
