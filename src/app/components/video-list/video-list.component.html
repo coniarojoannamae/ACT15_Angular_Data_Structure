@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="video-list.component.css">
+  <title>Video List</title>
+</head>
+<body>
+<div class="container">
+  <!-- Form to Add New Video -->
+  <h3 class="mt-4">Add New Video</h3>
+  <form (ngSubmit)="addVideo()" class="form-inline mt-3">
+    <div class="form-group mb-2">
+      <input type="text" [(ngModel)]="newVideo.videoTitle" name="videoTitle" placeholder="Video Title" class="form-control mr-2" required>
+    </div>
+    <div class="form-group mb-2">
+      <input type="text" [(ngModel)]="newVideo.category" name="category" placeholder="Category" class="form-control mr-2" required>
+    </div>
+    <div class="form-group mb-2">
+      <input type="number" [(ngModel)]="newVideo.duration" name="duration" placeholder="Duration (min)" class="form-control mr-2" required min="1">
+    </div>
+    <div class="form-group mb-2">
+      <input type="text" [(ngModel)]="newVideo.director" name="director" placeholder="Director" class="form-control mr-2" required>
+    </div>
+    <button type="submit" class="btn btn-outline-success">Add Video</button>
+  </form>
+
+  <h2 class="mt-4">Video Library List</h2>
+  <!-- Table to Display the Video List -->
+  <div class="mt-4">
+    <table class="table table-bordered table-striped">
+      <thead class="thead-dark">
+      <tr>
+        <th>Video Title</th>
+        <th>Category</th>
+        <th>Duration (min)</th>
+        <th>Director</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let video of videoList">
+        <td>{{ video.videoTitle }}</td>
+        <td>{{ video.category }}</td>
+        <td>{{ video.duration }}</td>
+        <td>{{ video.director }}</td>
+        <td>
+          <button class="btn btn-outline-danger" (click)="removeVideo(video.videoTitle)">Remove</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+</body>
+</html>
