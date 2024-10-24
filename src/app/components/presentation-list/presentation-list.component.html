@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="presentation-list.component.css">
+  <title>Presentation List</title>
+</head>
+<body>
+<div class="container">
+  <!-- Form to Add New Presentation Topic -->
+  <h3 class="mt-4">Add New Presentation Topic</h3>
+  <form (ngSubmit)="addPresentation()" class="form-inline mt-3">
+    <div class="form-group mb-2">
+      <input type="text" [(ngModel)]="newPresentation.topic" name="topic" placeholder="Presentation Topic" class="form-control mr-2" required>
+    </div>
+    <div class="form-group mb-2">
+      <input type="text" [(ngModel)]="newPresentation.presenter" name="presenter" placeholder="Presenter Name" class="form-control mr-2" required>
+    </div>
+    <div class="form-group mb-2">
+      <input type="date" [(ngModel)]="newPresentation.date" name="date" class="form-control mr-2" required>
+    </div>
+    <button type="submit" class="btn btn-outline-success">Add Presentation</button>
+  </form>
+  <h2 class="mt-4">Presentation Topics</h2>
+  <!-- Table to Display the Presentation List -->
+  <div class="mt-4">
+    <table class="table table-bordered table-striped">
+      <thead class="thead-dark">
+      <tr>
+        <th>Topic</th>
+        <th>Presenter</th>
+        <th>Date</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let presentation of presentationList">
+        <td>{{ presentation.topic }}</td>
+        <td>{{ presentation.presenter }}</td>
+        <td>{{ presentation.date | date: 'longDate' }}</td>
+        <td>
+          <button class="btn btn-outline-danger" (click)="removePresentation(presentation.topic)">Remove</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</body>
+</html>
