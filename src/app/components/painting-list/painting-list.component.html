@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="painting-list.component.css">
+  <title>Painting List</title>
+</head>
+<body>
+<div class="container">
+  <!-- Form to Add New Painting -->
+  <h3 class="mt-4">Add New Painting</h3>
+  <form (ngSubmit)="addPainting()" class="form-inline mt-3">
+    <div class="form-group mb-2">
+      <input type="text" [(ngModel)]="newPainting.title" name="title" placeholder="Title" class="form-control mr-2" required>
+    </div>
+    <div class="form-group mb-2">
+      <input type="text" [(ngModel)]="newPainting.artist" name="artist" placeholder="Artist" class="form-control mr-2" required>
+    </div>
+    <div class="form-group mb-2">
+      <input type="number" [(ngModel)]="newPainting.year" name="year" placeholder="Year" class="form-control mr-2" required min="1">
+    </div>
+    <div class="form-group mb-2">
+      <input type="text" [(ngModel)]="newPainting.style" name="style" placeholder="Style" class="form-control mr-2" required>
+    </div>
+    <div class="form-group mb-2">
+      <input type="text" [(ngModel)]="newPainting.location" name="location" placeholder="Location" class="form-control mr-2" required>
+    </div>
+    <button type="submit" class="btn btn-outline-success">Add Painting</button>
+  </form>
+  <h2 class="mt-4">Famous Paintings</h2>
+  <!-- Table to Display the Painting List -->
+  <div class="mt-4">
+    <table class="table table-bordered table-striped">
+      <thead class="thead-dark">
+      <tr>
+        <th>Title</th>
+        <th>Artist</th>
+        <th>Year</th>
+        <th>Style</th>
+        <th>Location</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let painting of paintingList">
+        <td>{{ painting.title }}</td>
+        <td>{{ painting.artist }}</td>
+        <td>{{ painting.year }}</td>
+        <td>{{ painting.style }}</td>
+        <td>{{ painting.location }}</td>
+        <td>
+          <button class="btn btn-outline-danger" (click)="removePainting(painting.title)">Remove</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</body>
+</html>
