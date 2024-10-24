@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="developer-tools-list.component.css">
+  <title>Developer Tools List</title>
+</head>
+<body>
+<div class="container">
+  <!-- Form to Add New Tool -->
+  <h3 class="mt-4">Add New Developer Tool</h3>
+  <form (ngSubmit)="addTool()" class="form-inline mt-3">
+    <div class="form-group mb-2">
+      <input type="text" [(ngModel)]="newTool.name" name="name" placeholder="Tool Name" class="form-control mr-2" required>
+    </div>
+    <div class="form-group mb-2">
+      <input type="text" [(ngModel)]="newTool.version" name="version" placeholder="Version" class="form-control mr-2" required>
+    </div>
+    <div class="form-group mb-2">
+      <input type="text" [(ngModel)]="newTool.description" name="description" placeholder="Description" class="form-control mr-2" required>
+    </div>
+    <button type="submit" class="btn btn-outline-success">Add Tool</button>
+  </form>
+  <h2 class="mt-4">Developer Tools</h2>
+  <!-- Table to Display the Tools List -->
+  <div class="mt-4">
+    <table class="table table-bordered table-striped">
+      <thead class="thead-dark">
+      <tr>
+        <th>Tool Name</th>
+        <th>Version</th>
+        <th>Description</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let tool of toolsList">
+        <td>{{ tool.name }}</td>
+        <td>{{ tool.version }}</td>
+        <td>{{ tool.description }}</td>
+        <td>
+          <button class="btn btn-outline-danger" (click)="removeTool(tool.name)">Remove</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import {RouterModule, Routes} from '@angular/router';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {FormsModule} from '@angular/forms';
 import {CommonModule} from "@angular/common";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {AppComponent} from "./app.component";
@@ -34,9 +34,7 @@ import {StationeryListComponent} from "./components/stationery-list/stationery-l
 import {FlowerListComponent} from "./components/flower-list/flower-list.component";
 import {DestinationListComponent} from "./components/destination-list/destination-list.component";
 import {LaptopListComponent} from "./components/laptop-list/laptop-list.component";
-import {
-  LaptopSpecificationsListComponent
-} from "./components/laptop-specifications-list/laptop-specifications-list.component";
+import {LaptopSpecificationsListComponent} from "./components/laptop-specifications-list/laptop-specifications-list.component";
 import {ComputerHardwareListComponent} from "./components/computer-hardware-list/computer-hardware-list.component";
 import {MobileAppListComponent} from "./components/mobile-app-list/mobile-app-list.component";
 import {VideoListComponent} from "./components/video-list/video-list.component";
@@ -54,6 +52,7 @@ import {BudgetListComponent} from "./components/budget-list/budget-list.componen
 import {PresentationListComponent} from "./components/presentation-list/presentation-list.component";
 import {TourListComponent} from "./components/tour-list/tour-list.component";
 import {EventListComponent} from "./components/event-list/event-list.component";
+import {DeveloperToolsListComponent} from "./components/developer-tools-list/developer-tools-list.component";
 
 const routes: Routes = [
   { path: 'StudentList', component: StudentListComponent },
@@ -102,6 +101,8 @@ const routes: Routes = [
   { path: 'PresentationList', component:PresentationListComponent},
   { path: 'TourList', component:TourListComponent},
   { path: 'EventList', component:EventListComponent},
+  { path: 'EventList', component:EventListComponent},
+  { path: 'DeveloperToolsList', component:DeveloperToolsListComponent},
 
 
 ];
@@ -164,7 +165,9 @@ const routes: Routes = [
     BudgetListComponent,
     PresentationListComponent,
     TourListComponent,
-    EventListComponent
+    EventListComponent,
+    DeveloperToolsListComponent,
+
   ],
 
   bootstrap: [
