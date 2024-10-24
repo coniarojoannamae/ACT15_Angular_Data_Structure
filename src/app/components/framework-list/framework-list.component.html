@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="framework-list.component.css">
+  <title>Framework List</title>
+</head>
+<body>
+<div class="container">
+  <!-- Form to Add New Framework -->
+  <h3 class="mt-4">Add New Framework</h3>
+  <form (ngSubmit)="addFramework()" class="form-inline mt-3">
+    <div class="form-group mb-2">
+      <input type="text" [(ngModel)]="newFramework.name" name="name" placeholder="Framework Name" class="form-control mr-2" required>
+    </div>
+    <div class="form-group mb-2">
+      <input type="text" [(ngModel)]="newFramework.language" name="language" placeholder="Language" class="form-control mr-2" required>
+    </div>
+    <div class="form-group mb-2">
+      <input type="text" [(ngModel)]="newFramework.description" name="description" placeholder="Description" class="form-control mr-2" required>
+    </div>
+    <button type="submit" class="btn btn-outline-success">Add Framework</button>
+  </form>
+  <h2 class="mt-4">Web Development Frameworks</h2>
+  <!-- Table to Display the Frameworks List -->
+  <div class="mt-4">
+    <table class="table table-bordered table-striped">
+      <thead class="thead-dark">
+      <tr>
+        <th>Framework Name</th>
+        <th>Language</th>
+        <th>Description</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let framework of frameworksList">
+        <td>{{ framework.name }}</td>
+        <td>{{ framework.language }}</td>
+        <td>{{ framework.description }}</td>
+        <td>
+          <button class="btn btn-outline-danger" (click)="removeFramework(framework.name)">Remove</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+</body>
+</html>
