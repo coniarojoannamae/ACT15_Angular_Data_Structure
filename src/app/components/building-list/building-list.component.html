@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="building-list.component.css">
+  <title>Building List</title>
+</head>
+<body>
+<div class="container">
+  <!-- Form to Add New Building -->
+  <h3 class="mt-4">Add New Building</h3>
+  <form (ngSubmit)="addBuilding()" class="form-inline mt-3">
+    <div class="form-group mb-2">
+      <input type="text" [(ngModel)]="newBuilding.name" name="name" placeholder="Building Name" class="form-control mr-2" required>
+    </div>
+    <div class="form-group mb-2">
+      <input type="text" [(ngModel)]="newBuilding.location" name="location" placeholder="Location" class="form-control mr-2" required>
+    </div>
+    <div class="form-group mb-2">
+      <input type="number" [(ngModel)]="newBuilding.floors" name="floors" placeholder="Floors" class="form-control mr-2" required min="1">
+    </div>
+    <div class="form-group mb-2">
+      <input type="text" [(ngModel)]="newBuilding.buildingType" name="buildingType" placeholder="Building Type" class="form-control mr-2" required>
+    </div>
+    <div class="form-group mb-2">
+      <input type="number" [(ngModel)]="newBuilding.capacity" name="capacity" placeholder="Capacity" class="form-control mr-2" required min="1">
+    </div>
+    <button type="submit" class="btn btn-outline-success">Add Building</button>
+  </form>
+  <h2 class="mt-4">Campus Buildings</h2>
+  <!-- Table to Display the Building List -->
+  <div class="mt-4">
+    <table class="table table-bordered table-striped">
+      <thead class="thead-dark">
+      <tr>
+        <th>Name</th>
+        <th>Location</th>
+        <th>Floors</th>
+        <th>Type</th>
+        <th>Capacity</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let building of buildingList">
+        <td>{{ building.name }}</td>
+        <td>{{ building.location }}</td>
+        <td>{{ building.floors }}</td>
+        <td>{{ building.buildingType }}</td>
+        <td>{{ building.capacity }}</td>
+        <td>
+          <button class="btn btn-outline-danger" (click)="removeBuilding(building.name)">Remove</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+</body>
+</html>
