@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="budget-list.component.css">
+  <title>Budget List</title>
+</head>
+<body>
+<div class="container">
+  <!-- Form to Add New Budget Item -->
+  <h3 class="mt-4">Add New Budget Item</h3>
+  <form (ngSubmit)="addBudgetItem()" class="form-inline mt-3">
+    <div class="form-group mb-2">
+      <input type="text" [(ngModel)]="newBudgetItem.item" name="item" placeholder="Item Name" class="form-control mr-2" required>
+    </div>
+    <div class="form-group mb-2">
+      <input type="text" [(ngModel)]="newBudgetItem.category" name="category" placeholder="Category" class="form-control mr-2" required>
+    </div>
+    <div class="form-group mb-2">
+      <input type="number" [(ngModel)]="newBudgetItem.estimatedCost" name="estimatedCost" placeholder="Estimated Cost" class="form-control mr-2" required>
+    </div>
+    <div class="form-group mb-2">
+      <input type="number" [(ngModel)]="newBudgetItem.actualCost" name="actualCost" placeholder="Actual Cost" class="form-control mr-2">
+    </div>
+    <button type="submit" class="btn btn-outline-success">Add Item</button>
+  </form>
+  <h2 class="mt-4">Project Budget</h2>
+  <!-- Table to Display the Budget List -->
+  <div class="mt-4">
+    <table class="table table-bordered table-striped">
+      <thead class="thead-dark">
+      <tr>
+        <th>Item</th>
+        <th>Category</th>
+        <th>Estimated Cost</th>
+        <th>Actual Cost</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let budgetItem of budgetList">
+        <td>{{ budgetItem.item }}</td>
+        <td>{{ budgetItem.category }}</td>
+        <td>{{ budgetItem.estimatedCost | currency }}</td>
+        <td>{{ budgetItem.actualCost | currency }}</td>
+        <td>
+          <button class="btn btn-outline-danger" (click)="removeBudgetItem(budgetItem.item)">Remove</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+</body>
+</html>
