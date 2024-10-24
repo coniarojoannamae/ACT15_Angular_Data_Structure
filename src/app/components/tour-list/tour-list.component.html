@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="tour-list.component.css">
+  <title>Tour List</title>
+</head>
+<body>
+<div class="container">
+  <!-- Form to Add New Tour Date -->
+  <h3 class="mt-4">Add New Tour Date</h3>
+  <form (ngSubmit)="addTour()" class="form-inline mt-3">
+    <div class="form-group mb-2">
+      <input type="date" [(ngModel)]="newTour.date" name="date" class="form-control mr-2" required>
+    </div>
+    <div class="form-group mb-2">
+      <input type="text" [(ngModel)]="newTour.location" name="location" placeholder="Location" class="form-control mr-2" required>
+    </div>
+    <div class="form-group mb-2">
+      <input type="text" [(ngModel)]="newTour.venue" name="venue" placeholder="Venue" class="form-control mr-2" required>
+    </div>
+    <button type="submit" class="btn btn-outline-success">Add Tour Date</button>
+  </form>
+  <h2 class="mt-4">Tour Dates</h2>
+  <!-- Table to Display the Tour List -->
+  <div class="mt-4">
+    <table class="table table-bordered table-striped">
+      <thead class="thead-dark">
+      <tr>
+        <th>Date</th>
+        <th>Location</th>
+        <th>Venue</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let tour of tourList">
+        <td>{{ tour.date | date: 'longDate' }}</td>
+        <td>{{ tour.location }}</td>
+        <td>{{ tour.venue }}</td>
+        <td>
+          <button class="btn btn-outline-danger" (click)="removeTour(tour.date)">Remove</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+</body>
+</html>
