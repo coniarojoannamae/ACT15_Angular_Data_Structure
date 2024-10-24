@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="accessory-list.component.css">
+  <title>Accessory List</title>
+</head>
+<body>
+<div class="container">
+  <!-- Form to Add New Accessory -->
+  <h3 class="mt-4">Add New Accessory</h3>
+  <form (ngSubmit)="addAccessory()" class="form-inline mt-3">
+    <div class="form-group mb-2">
+      <input type="text" [(ngModel)]="newAccessory.name" name="name" placeholder="Name" class="form-control mr-2" required>
+    </div>
+    <div class="form-group mb-2">
+      <input type="text" [(ngModel)]="newAccessory.type" name="type" placeholder="Type" class="form-control mr-2" required>
+    </div>
+    <div class="form-group mb-2">
+      <input type="number" [(ngModel)]="newAccessory.price" name="price" placeholder="Price" class="form-control mr-2" required min="1">
+    </div>
+    <div class="form-group mb-2">
+      <input type="text" [(ngModel)]="newAccessory.brand" name="brand" placeholder="Brand" class="form-control mr-2" required>
+    </div>
+    <div class="form-group mb-2">
+      <select [(ngModel)]="newAccessory.availability" name="availability" class="form-control mr-2">
+        <option [ngValue]="true">Available</option>
+        <option [ngValue]="false">Not Available</option>
+      </select>
+    </div>
+    <button type="submit" class="btn btn-outline-success">Add Accessory</button>
+  </form>
+
+  <h2 class="mt-4">Mobile Phone Accessories</h2>
+  <!-- Table to Display the Accessory List -->
+  <div class="mt-4">
+    <table class="table table-bordered table-striped">
+      <thead class="thead-dark">
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Price</th>
+        <th>Brand</th>
+        <th>Availability</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let accessory of accessoryList">
+        <td>{{ accessory.name }}</td>
+        <td>{{ accessory.type }}</td>
+        <td>{{ accessory.price | currency:'PHP':'symbol' }}</td>
+        <td>{{ accessory.brand }}</td>
+        <td>{{ accessory.availability ? 'Available' : 'Not Available' }}</td>
+        <td>
+          <button class="btn btn-outline-danger" (click)="removeAccessory(accessory.name)">Remove</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</body>
+</html>
