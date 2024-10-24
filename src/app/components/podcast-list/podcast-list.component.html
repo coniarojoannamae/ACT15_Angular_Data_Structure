@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="podcast-list.component.css">
+  <title>Podcast List</title>
+</head>
+<body>
+<div class="container">
+  <!-- Form to Add New Podcast Episode -->
+  <h3 class="mt-4">Add New Episode</h3>
+  <form (ngSubmit)="addPodcast()" class="form-inline mt-3">
+    <div class="form-group mb-2">
+      <input type="text" [(ngModel)]="newPodcast.title" name="title" placeholder="Episode Title" class="form-control mr-2" required>
+    </div>
+    <div class="form-group mb-2">
+      <input type="text" [(ngModel)]="newPodcast.host" name="host" placeholder="Host" class="form-control mr-2" required>
+    </div>
+    <div class="form-group mb-2">
+      <input type="text" [(ngModel)]="newPodcast.duration" name="duration" placeholder="Duration" class="form-control mr-2" required>
+    </div>
+    <div class="form-group mb-2">
+      <input type="date" [(ngModel)]="newPodcast.releaseDate" name="releaseDate" class="form-control mr-2" required>
+    </div>
+    <button type="submit" class="btn btn-outline-success">Add Episode</button>
+  </form>
+  <h2 class="mt-4">Podcast Episodes</h2>
+  <!-- Table to Display the Podcast List -->
+  <div class="mt-4">
+    <table class="table table-bordered table-striped">
+      <thead class="thead-dark">
+      <tr>
+        <th>Title</th>
+        <th>Host</th>
+        <th>Duration</th>
+        <th>Release Date</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let podcast of podcastList">
+        <td>{{ podcast.title }}</td>
+        <td>{{ podcast.host }}</td>
+        <td>{{ podcast.duration }}</td>
+        <td>{{ podcast.releaseDate }}</td>
+        <td>
+          <button class="btn btn-outline-danger" (click)="removePodcast(podcast.title)">Remove</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</body>
+</html>
