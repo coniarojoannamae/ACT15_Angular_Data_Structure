@@ -29,7 +29,6 @@ export class TourListComponent {
       alert('Please fill in all the required fields.');
     }
   }
-
   // Remove a tour date by date
   removeTour(date: Date) {
     this.tourList = this.tourList.filter(tour => tour.date !== date);
