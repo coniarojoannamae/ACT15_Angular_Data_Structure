@@ -1,26 +1,35 @@
 import { Component } from '@angular/core';
+import { City } from './city.model';
+import { CityService } from './city-list.service';
+
 
 @Component({
   selector: 'app-city-list',
   templateUrl: './city-list.component.html',
-  styleUrl: './city-list.component.css'
+  styleUrls: ['./city-list.component.css'],
 })
 export class CityListComponent {
-  cities: { name: string, country: string }[] = [
-    { name: 'New York', country: 'USA' },
-    { name: 'London', country: 'UK' },
-  ];
-
+  cities: { name: string; country: string }[] = [];
   newCity = { name: '', country: '' };
+
+  constructor(private cityService: CityService) {
+    this.loadCities();
+  }
+
+  loadCities() {
+    this.cities = this.cityService.getCities();
+  }
 
   addCity() {
     if (this.newCity.name.trim() && this.newCity.country.trim()) {
-      this.cities.push({ ...this.newCity });
-      this.newCity = { name: '', country: '' }; // Reset the form
+      this.cityService.addCity({ ...this.newCity });
+      this.newCity = { name: '', country: '' }; // Reset the form fields
+      this.loadCities();
     }
   }
 
-  removeCity(cityName: string) {
-    this.cities = this.cities.filter(city => city.name !== cityName);
+  removeCity(name: string) {
+    this.cityService.removeCity(name);
+    this.loadCities();
   }
 }
