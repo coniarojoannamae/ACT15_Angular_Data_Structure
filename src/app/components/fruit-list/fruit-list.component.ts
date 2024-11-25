@@ -1,23 +1,35 @@
 import { Component } from '@angular/core';
+import { Fruit } from './fruit.model';
+import { FruitService } from './fruit-list.service';
 
 @Component({
   selector: 'app-fruit-list',
   templateUrl: './fruit-list.component.html',
-  styleUrl: './fruit-list.component.css'
+  styleUrls: ['./fruit-list.component.css'],
 })
 export class FruitListComponent {
-  fruits: string[] = ['Apple', 'Banana', 'Orange'];
-
+  fruits: string[] = [];
   newFruit: string = '';
 
-  addFruit() {
-    if (this.newFruit.trim()) {
-      this.fruits.push(this.newFruit.trim());
-      this.newFruit = ''; // Reset input field after adding
-    }
+  constructor(private fruitService: FruitService) {
+    this.loadFruits();
   }
 
-  removeFruit(fruit: string) {
-    this.fruits = this.fruits.filter(f => f !== fruit);
+  // Load fruits from the service
+  loadFruits(): void {
+    this.fruits = this.fruitService.getFruits();
+  }
+
+  // Add a new fruit
+  addFruit(): void {
+    this.fruitService.addFruit(this.newFruit);
+    this.newFruit = ''; // Reset input field
+    this.loadFruits(); // Refresh the fruit list
+  }
+
+  // Remove a fruit
+  removeFruit(fruit: string): void {
+    this.fruitService.removeFruit(fruit);
+    this.loadFruits(); // Refresh the fruit list
   }
 }
