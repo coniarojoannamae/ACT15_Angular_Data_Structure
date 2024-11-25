@@ -1,27 +1,35 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Employee } from './employee.model';
+import { EmployeeService } from './employee-list.service';
+
 
 @Component({
   selector: 'app-employee-list',
   templateUrl: './employee-list.component.html',
-  styleUrl: './employee-list.component.css'
+  styleUrls: ['./employee-list.component.css'],
 })
-export class EmployeeListComponent {
-  employees: Employee[] = [
-    { id: 1, name: 'Alice Johnson', position: 'Software Engineer', department: 'IT' },
-    { id: 2, name: 'Bob Smith', position: 'HR Manager', department: 'HR' }
-  ];
-
+export class EmployeeListComponent implements OnInit {
+  employees: Employee[] = [];
   newEmployee: Employee = { id: 0, name: '', position: '', department: '' };
 
-  addEmployee() {
-    const id = this.employees.length > 0 ? this.employees[this.employees.length - 1].id + 1 : 1;
-    const employee = { ...this.newEmployee, id };
-    this.employees.push(employee);
+  constructor(private employeeService: EmployeeService) {}
+
+  ngOnInit(): void {
+    this.loadEmployees();
+  }
+
+  loadEmployees(): void {
+    this.employees = this.employeeService.getEmployees();
+  }
+
+  addEmployee(): void {
+    this.employeeService.addEmployee(this.newEmployee);
+    this.loadEmployees(); // Refresh the list
     this.newEmployee = { id: 0, name: '', position: '', department: '' }; // Reset the form
   }
 
-  removeEmployee(id: number) {
-    this.employees = this.employees.filter(employee => employee.id !== id);
+  removeEmployee(id: number): void {
+    this.employeeService.removeEmployee(id);
+    this.loadEmployees(); // Refresh the list
   }
 }
