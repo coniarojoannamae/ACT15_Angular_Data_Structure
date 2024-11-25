@@ -1,27 +1,27 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ToolService } from './tool-list.service';
+import { Tool } from './tool.model';
 
 @Component({
   selector: 'app-tool-list',
   templateUrl: './tool-list.component.html',
-  styleUrl: './tool-list.component.css'
+  styleUrls: ['./tool-list.component.css']
 })
-export class ToolListComponent {
-  // Initial list of tools in the workshop
-  tools: { name: string, type: string, quantity: number }[] = [
-
-    { name: 'Drill', type: 'Power Tool', quantity: 5 },
-    { name: 'Screwdriver', type: 'Hand Tool', quantity: 20 },
-    { name: 'Saw', type: 'Hand Tool', quantity: 7 }
-  ];
-
-  // Initialize new tool with default values
+export class ToolListComponent implements OnInit {
+  tools: { name: string, type: string, quantity: number }[] = [];
   newTool = { name: '', type: '', quantity: 0 };
+
+  constructor(private toolService: ToolService) {}
+
+  ngOnInit() {
+    this.tools = this.toolService.getTools(); // Fetch the tool list from the service
+  }
 
   // Add a new tool
   addTool() {
     if (this.newTool.name.trim() && this.newTool.type.trim() && this.newTool.quantity > 0) {
-      this.tools.push({ ...this.newTool });
-      this.newTool = { name: '', type: '', quantity: 0 };  // Reset the form
+      this.toolService.addTool({ ...this.newTool }); // Add tool through the service
+      this.newTool = { name: '', type: '', quantity: 0 }; // Reset form after adding
     } else {
       alert('Please enter valid details for the tool.');
     }
@@ -29,6 +29,7 @@ export class ToolListComponent {
 
   // Remove a tool by name
   removeTool(toolName: string) {
-    this.tools = this.tools.filter(tool => tool.name !== toolName);
+    this.toolService.removeTool(toolName); // Remove tool through the service
+    this.tools = this.toolService.getTools(); // Refresh the tool list
   }
 }
