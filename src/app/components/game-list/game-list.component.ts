@@ -1,25 +1,28 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { GameService } from './game-list.service';
+import { Game } from './game.model';
 
 @Component({
   selector: 'app-game-list',
   templateUrl: './game-list.component.html',
-  styleUrl: './game-list.component.css'
+  styleUrls: ['./game-list.component.css']
 })
-export class GameListComponent {
-  // Initial list of video games
-  games: { title: string, genre: string, releaseYear: number }[] = [
-    { title: 'The Legend of Zelda: Breath of the Wild', genre: 'Action-Adventure', releaseYear: 2017 },
-    { title: 'Cyberpunk 2077', genre: 'RPG', releaseYear: 2020 },
-  ];
-
-  // Initialize new game with default values
+export class GameListComponent implements OnInit {
+  games: { title: string, genre: string, releaseYear: number }[] = [];
   newGame = { title: '', genre: '', releaseYear: 0 };
+
+  constructor(private gameService: GameService) {}
+
+  ngOnInit() {
+    this.games = this.gameService.getGames(); // Fetch the list of games from the service
+  }
 
   // Add a new game
   addGame() {
     if (this.newGame.title.trim() && this.newGame.genre.trim() && this.newGame.releaseYear > 0) {
-      this.games.push({ ...this.newGame });
-      this.newGame = { title: '', genre: '', releaseYear: 0 };  // Reset the form
+      this.gameService.addGame({ ...this.newGame }); // Add game via service
+      this.newGame = { title: '', genre: '', releaseYear: 0 }; // Reset form
+      this.games = this.gameService.getGames(); // Refresh the list
     } else {
       alert('Please enter valid details for the game.');
     }
@@ -27,6 +30,7 @@ export class GameListComponent {
 
   // Remove a game by title
   removeGame(gameTitle: string) {
-    this.games = this.games.filter(game => game.title !== gameTitle);
+    this.gameService.removeGame(gameTitle); // Remove game via service
+    this.games = this.gameService.getGames(); // Refresh the list
   }
 }
