@@ -1,32 +1,32 @@
-import { Component } from '@angular/core';
-
+import { Component, OnInit } from '@angular/core';
+import { SportService } from './sports-list.service';
+import { Sport } from './sport.model';
 @Component({
   selector: 'app-sports-list',
   templateUrl: './sports-list.component.html',
-  styleUrl: './sports-list.component.css'
+  styleUrls: ['./sports-list.component.css']
 })
-export class SportsListComponent {
-// Initial list of popular sports
-  sports: { name: string, type: string }[] = [
-    { name: 'Soccer', type: 'Team Sport' },
-    { name: 'Tennis', type: 'Individual Sport' },
-    { name: 'Basketball', type: 'Team Sport' },
-    { name: 'Swimming', type: 'Individual Sport' }
-  ];
+export class SportsListComponent implements OnInit {
+  sports: Sport[] = [];
+  newSport: Sport = { name: '', type: '' };
+  sportTypes: string[] = ['Team Sport', 'Individual Sport', 'Racing', 'Combat'];
 
-  // Initialize new sport
-  newSport = { name: '', type: '' };
+  constructor(private sportService: SportService) {}
 
-  // Add a new sport
+  ngOnInit() {
+    this.sports = this.sportService.getSports(); // Fetch initial sports list
+  }
+
   addSport() {
     if (this.newSport.name.trim() && this.newSport.type.trim()) {
-      this.sports.push({ ...this.newSport });
-      this.newSport = { name: '', type: '' }; // Reset form
+      this.sportService.addSport({ ...this.newSport });
+      this.sports = this.sportService.getSports(); // Refresh the list
+      this.newSport = { name: '', type: '' }; // Reset the form
     }
   }
 
-  // Remove a sport by name
   removeSport(sportName: string) {
-    this.sports = this.sports.filter(sport => sport.name !== sportName);
+    this.sportService.removeSport(sportName);
+    this.sports = this.sportService.getSports(); // Refresh the list
   }
 }
