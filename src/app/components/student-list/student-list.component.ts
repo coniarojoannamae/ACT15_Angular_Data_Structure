@@ -1,27 +1,34 @@
-// student.component.css
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Student } from './student.model';
+import { StudentService } from './student-list.service';
 
 @Component({
   selector: 'app-student-list',
   templateUrl: './student-list.component.html',
-  styleUrl: './student-list.component.css'
+  styleUrls: ['./student-list.component.css'],
 })
-export class StudentListComponent {
-  students: Student[] = [
-    { id: 1, name: 'Jana Coniaro', course: 'BSIT' },
-    { id: 2, name: 'Mhae Madelar', course: 'BSCS' }
-  ];
-
+export class StudentListComponent implements OnInit {
+  students: Student[] = [];
   newStudent: Student = { id: 0, name: '', course: '' };
 
-  addStudent() {
-    const id = this.students.length > 0 ? this.students[this.students.length - 1].id + 1 : 1;
-    const student = { ...this.newStudent, id };
-    this.students.push(student);
-    this.newStudent = { id: 0, name: '', course: '' }; // Reset the form
+  constructor(private studentService: StudentService) {}
+
+  ngOnInit(): void {
+    this.loadStudents();
   }
+
+  loadStudents() {
+    this.students = this.studentService.getStudents();
+  }
+
+  addStudent() {
+    this.studentService.addStudent(this.newStudent);
+    this.loadStudents();
+    this.newStudent = { id: 0, name: '', course: '' }; // Reset form
+  }
+
   removeStudent(id: number) {
-    this.students = this.students.filter(student => student.id !== id);
+    this.studentService.removeStudent(id);
+    this.loadStudents();
   }
 }
