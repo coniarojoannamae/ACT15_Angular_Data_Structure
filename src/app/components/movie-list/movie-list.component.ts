@@ -1,28 +1,35 @@
 import { Component } from '@angular/core';
+import  { MovieService } from './movie-list.service';
 import {Movie}  from "./movie.model";
+
 
 @Component({
   selector: 'app-movie-list',
   templateUrl: './movie-list.component.html',
-  styleUrl: './movie-list.component.css'
+  styleUrls: ['./movie-list.component.css'],
 })
 export class MovieListComponent {
-  movies: { title: string, genre: string, showtime: string }[] = [
-    { title: 'The Avengers', genre: 'Action', showtime: '7:00 PM' },
-    { title: 'Frozen II', genre: 'Animation', showtime: '5:30 PM' },
-    { title: 'Inception', genre: 'Sci-Fi', showtime: '9:00 PM' }
-  ];
-
+  movies: { title: string; genre: string; showtime: string }[] = [];
   newMovie = { title: '', genre: '', showtime: '' };
+
+  constructor(private movieService: MovieService) {
+    this.loadMovies();
+  }
+
+  loadMovies() {
+    this.movies = this.movieService.getMovies();
+  }
 
   addMovie() {
     if (this.newMovie.title.trim() && this.newMovie.genre.trim() && this.newMovie.showtime.trim()) {
-      this.movies.push({ ...this.newMovie });
-      this.newMovie = { title: '', genre: '', showtime: '' }; // Reset the form
+      this.movieService.addMovie({ ...this.newMovie });
+      this.newMovie = { title: '', genre: '', showtime: '' }; // Reset the form fields
+      this.loadMovies();
     }
   }
 
-  removeMovie(movieTitle: string) {
-    this.movies = this.movies.filter(movie => movie.title !== movieTitle);
+  removeMovie(title: string) {
+    this.movieService.removeMovie(title);
+    this.loadMovies();
   }
 }

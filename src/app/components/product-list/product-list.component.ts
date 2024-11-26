@@ -1,26 +1,36 @@
 import { Component } from '@angular/core';
+import { ProductService } from './product-list.service';
+import { Product} from './product.model';
 
 @Component({
   selector: 'app-product-list',
   templateUrl: './product-list.component.html',
-  styleUrl: './product-list.component.css'
+  styleUrls: ['./product-list.component.css'],
 })
 export class ProductListComponent {
-  products: { name: string, price: number, category: string }[] = [
-    { name: 'Laptop', price: 50000, category: 'Electronics' },
-    { name: 'Shampoo', price: 150, category: 'Personal Care' },
-    { name: 'Bread', price: 50, category: 'Grocery' }
-  ];
+  products: { name: string; price: number; category: string }[] = [];
+  newProduct = { name: '', price: 0, category: '' };
 
-  newProduct = { name: '', price: 0, category: '' }; // Initialize price with a default value
+  constructor(private productService: ProductService) {
+    this.loadProducts();
+  }
+
+  loadProducts() {
+    this.products = this.productService.getProducts();
+  }
 
   addProduct() {
-    if (this.newProduct.name.trim() && this.newProduct.price && this.newProduct.category.trim()) {
-      this.products.push({ ...this.newProduct });
-      this.newProduct = { name: '', price: 0, category: '' }; // Reset form with default price
+    if (this.newProduct.name.trim() && this.newProduct.price > 0 && this.newProduct.category.trim()) {
+      this.productService.addProduct({ ...this.newProduct });
+      this.newProduct = { name: '', price: 0, category: '' }; // Reset the form
+      this.loadProducts();
+    } else {
+      alert('Please fill in all fields with valid values.');
     }
   }
+
   removeProduct(productName: string) {
-    this.products = this.products.filter(product => product.name !== productName);
+    this.productService.removeProduct(productName);
+    this.loadProducts();
   }
 }

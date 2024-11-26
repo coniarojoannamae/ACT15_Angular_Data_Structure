@@ -1,25 +1,28 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { PhoneContactService } from './phone-contact.service';
+import { Contact } from './contact.model';
 
 @Component({
   selector: 'app-phone-contact-list',
   templateUrl: './phone-contact-list.component.html',
-  styleUrl: './phone-contact-list.component.css'
+  styleUrls: ['./phone-contact-list.component.css']
 })
-export class PhoneContactListComponent {
-  // Initial list of phone contacts
-  contacts: { name: string, phoneNumber: string, email: string }[] = [
-    { name: 'John Doe', phoneNumber: '09123456789', email: 'john.doe@example.com' },
-    { name: 'Jane Smith', phoneNumber: '09234567890', email: 'jane.smith@example.com' },
-  ];
-
-  // Initialize new contact with default values
+export class PhoneContactListComponent implements OnInit {
+  contacts: { name: string, phoneNumber: string, email: string }[] = [];
   newContact = { name: '', phoneNumber: '', email: '' };
+
+  constructor(private phoneContactService: PhoneContactService) {}
+
+  ngOnInit() {
+    this.contacts = this.phoneContactService.getContacts(); // Fetch initial contact list
+  }
 
   // Add a new contact
   addContact() {
     if (this.newContact.name.trim() && this.newContact.phoneNumber.trim() && this.newContact.email.trim()) {
-      this.contacts.push({ ...this.newContact });
-      this.newContact = { name: '', phoneNumber: '', email: '' };  // Reset the form
+      this.phoneContactService.addContact({ ...this.newContact }); // Add via service
+      this.newContact = { name: '', phoneNumber: '', email: '' }; // Reset the form
+      this.contacts = this.phoneContactService.getContacts(); // Refresh the list
     } else {
       alert('Please enter valid details for the contact.');
     }
@@ -27,6 +30,7 @@ export class PhoneContactListComponent {
 
   // Remove a contact by name
   removeContact(contactName: string) {
-    this.contacts = this.contacts.filter(contact => contact.name !== contactName);
+    this.phoneContactService.removeContact(contactName); // Remove via service
+    this.contacts = this.phoneContactService.getContacts(); // Refresh the list
   }
 }

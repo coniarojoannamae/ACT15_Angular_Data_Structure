@@ -1,26 +1,27 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { AnimalService } from './animal-list.service';
+import { Animal  } from './animal.model';
 
 @Component({
   selector: 'app-animal-list',
   templateUrl: './animal-list.component.html',
-  styleUrl: './animal-list.component.css'
+  styleUrls: ['./animal-list.component.css']
 })
-export class AnimalListComponent {
-  animals: { name: string, species: string, age: number }[] = [
-    { name: 'Leo', species: 'Lion', age: 5 },
-    { name: 'Dumbo', species: 'Elephant', age: 10 },
-    { name: 'Zara', species: 'Zebra', age: 4 },
-    { name: 'Sammy', species: 'Giraffe', age: 7 }
-  ];
-
-  // Initialize new animal with a valid default age
+export class AnimalListComponent implements OnInit {
+  animals: { name: string, species: string, age: number }[] = [];
   newAnimal = { name: '', species: '', age: 0 };
+
+  constructor(private animalService: AnimalService) {}
+
+  ngOnInit() {
+    this.animals = this.animalService.getAnimals(); // Fetch the animal list from the service
+  }
 
   // Add a new animal
   addAnimal() {
     if (this.newAnimal.name.trim() && this.newAnimal.species.trim() && this.newAnimal.age > 0) {
-      this.animals.push({ ...this.newAnimal });
-      this.newAnimal = { name: '', species: '', age: 0 };  // Reset the form
+      this.animalService.addAnimal({ ...this.newAnimal }); // Use service to add
+      this.newAnimal = { name: '', species: '', age: 0 }; // Reset the form
     } else {
       alert('Please enter valid details for the animal.');
     }
@@ -28,6 +29,7 @@ export class AnimalListComponent {
 
   // Remove an animal by name
   removeAnimal(animalName: string) {
-    this.animals = this.animals.filter(animal => animal.name !== animalName);
+    this.animalService.removeAnimal(animalName); // Use service to remove
+    this.animals = this.animalService.getAnimals(); // Refresh the list
   }
 }

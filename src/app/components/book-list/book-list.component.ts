@@ -1,26 +1,39 @@
 import { Component } from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import { Book } from './book.model';
+import { BookService } from  './book-list.service';
 import {NgForOf} from "@angular/common";
 
 @Component({
   selector: 'app-book-list',
   templateUrl: './book-list.component.html',
-  styleUrl: './book-list.component.css'
+  styleUrls: ['./book-list.component.css'],
 })
 export class BookListComponent {
-  books: { title: string, author: string, genre: string }[] = [
-    { title: 'To Kill a Mockingbird', author: 'Harper Lee', genre: 'Fiction' },
-    { title: 'The Complete Guide to Angular', author: ' Felipe Coury, Carlos Taborda, Ari Lerner, Nate Murray', genre: 'TechnologyProgramming' },
-  ];
+  books: { title: string; author: string; genre: string }[] = [];
   newBook = { title: '', author: '', genre: '' };
-  addBook() {
-    if (this.newBook.title.trim() && this.newBook.author.trim() && this.newBook.genre.trim()) {
-      this.books.push({ ...this.newBook });
-      this.newBook = { title: '', author: '', genre: '' }; // Reset the form
-    }
-  }
-  removeBook(bookTitle: string) {
-    this.books = this.books.filter(book => book.title !== bookTitle);
+
+  constructor(private bookService: BookService) {
+    this.loadBooks();
   }
 
+  // Load books from the service
+  loadBooks() {
+    this.books = this.bookService.getBooks();
+  }
+
+  // Add a new book
+  addBook() {
+    if (this.newBook.title.trim() && this.newBook.author.trim() && this.newBook.genre.trim()) {
+      this.bookService.addBook({ ...this.newBook });
+      this.newBook = { title: '', author: '', genre: '' }; // Reset form fields
+      this.loadBooks(); // Refresh the book list
+    }
+  }
+
+  // Remove a book
+  removeBook(title: string) {
+    this.bookService.removeBook(title);
+    this.loadBooks(); // Refresh the book list
+  }
 }
