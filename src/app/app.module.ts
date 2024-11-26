@@ -88,6 +88,7 @@ const routes: Routes = [
   { path: 'LaptopList', component:LaptopListComponent},
   { path: 'LaptopSpecificationsList', component:LaptopSpecificationsListComponent},
   { path: 'ComputerHardwareList', component:ComputerHardwareListComponent},
+  { path: 'MobileAppList', component: MobileAppListComponent},
   { path: 'VideoList', component:VideoListComponent},
   { path: 'TVShowList', component:TVShowListComponent},
   { path: 'FurnitureList', component:FurnitureListComponent},
