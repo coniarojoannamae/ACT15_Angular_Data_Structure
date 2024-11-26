@@ -1,37 +1,38 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { PodcastService } from './podcast.service';
 
 @Component({
   selector: 'app-podcast-list',
   templateUrl: './podcast-list.component.html',
-  styleUrl: './podcast-list.component.css'
+  styleUrls: ['./podcast-list.component.css']
 })
-export class PodcastListComponent {
-  // Initial list of podcast episodes
-  podcastList: { title: string, host: string, duration: string, releaseDate: string }[] = [
-    { title: 'Learning Angular', host: 'John Doe', duration: '45 mins', releaseDate: '2024-09-10' },
-    { title: 'The Tech Chronicles', host: 'Jane Smith', duration: '60 mins', releaseDate: '2024-10-01' },
-    { title: 'Web Dev Weekly', host: 'Mike Wilson', duration: '30 mins', releaseDate: '2024-10-05' }
-  ];
-
-  // Initialize new podcast with default values
+export class PodcastListComponent implements OnInit {
+  podcastList: { title: string, host: string, duration: string, releaseDate: string }[] = [];
   newPodcast = { title: '', host: '', duration: '', releaseDate: '' };
 
-  // Add a new podcast episode to the list
+  constructor(private podcastService: PodcastService) {}
+
+  ngOnInit() {
+    this.podcastList = this.podcastService.getPodcasts();
+  }
+
   addPodcast() {
     if (this.newPodcast.title.trim() && this.newPodcast.host.trim() && this.newPodcast.duration.trim() && this.newPodcast.releaseDate.trim()) {
-      this.podcastList.push({
+      this.podcastService.addPodcast({
         title: this.newPodcast.title,
         host: this.newPodcast.host,
         duration: this.newPodcast.duration,
         releaseDate: this.newPodcast.releaseDate
       });
-      this.newPodcast = { title: '', host: '', duration: '', releaseDate: '' };  // Reset the form
+      this.newPodcast = { title: '', host: '', duration: '', releaseDate: '' }; // Reset the form
     } else {
       alert('Please fill in all the required fields.');
     }
+    this.podcastList = this.podcastService.getPodcasts(); // Refresh the list
   }
-  // Remove a podcast episode by title
+
   removePodcast(title: string) {
-    this.podcastList = this.podcastList.filter(podcast => podcast.title !== title);
+    this.podcastService.removePodcast(title);
+    this.podcastList = this.podcastService.getPodcasts(); // Refresh the list
   }
 }
