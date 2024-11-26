@@ -1,33 +1,32 @@
 import { Component } from '@angular/core';
-
+import { LaptopSpecificationsService } from './laptop-specifications.service';
+import { LaptopSpecifications } from './laptop-specifications.model';
 @Component({
   selector: 'app-laptop-specifications-list',
   templateUrl: './laptop-specifications-list.component.html',
-  styleUrl: './laptop-specifications-list.component.css'
+  styleUrls: ['./laptop-specifications-list.component.css']
 })
 export class LaptopSpecificationsListComponent {
-  // Initial list of laptops with specifications
-  laptopList: { brand: string, model: string, processor: string, ram: string, storage: string, price: number }[] = [
-    { brand: 'Apple', model: 'MacBook Pro', processor: 'M1', ram: '16GB', storage: '512GB SSD', price: 2400 },
-    { brand: 'Dell', model: 'XPS 13', processor: 'Intel i7', ram: '16GB', storage: '512GB SSD', price: 1500 },
-    { brand: 'HP', model: 'Spectre x360', processor: 'Intel i7', ram: '16GB', storage: '1TB SSD', price: 1600 }
-  ];
-
-  // Initialize new laptop with default values
+  laptopList: { brand: string, model: string, processor: string, ram: string, storage: string, price: number }[] = [];
   newLaptop = { brand: '', model: '', processor: '', ram: '', storage: '', price: 0 };
 
-  // Add a new laptop to the list
+  constructor(private laptopService: LaptopSpecificationsService) {
+    this.laptopList = this.laptopService.getLaptops(); // Initialize the list from the service
+  }
+
   addLaptop() {
-    if (this.newLaptop.brand.trim() && this.newLaptop.model.trim() && this.newLaptop.processor.trim() && this.newLaptop.ram.trim() && this.newLaptop.storage.trim() && this.newLaptop.price > 0) {
-      this.laptopList.push({ ...this.newLaptop });
-      this.newLaptop = { brand: '', model: '', processor: '', ram: '', storage: '', price: 0 };  // Reset the form
+    if (this.newLaptop.brand.trim() && this.newLaptop.model.trim() && this.newLaptop.processor.trim() &&
+        this.newLaptop.ram.trim() && this.newLaptop.storage.trim() && this.newLaptop.price > 0) {
+      this.laptopService.addLaptop({ ...this.newLaptop });
+      this.newLaptop = { brand: '', model: '', processor: '', ram: '', storage: '', price: 0 };  // Reset form
+      this.laptopList = this.laptopService.getLaptops(); // Refresh the list
     } else {
       alert('Please fill in all the details for the laptop.');
     }
   }
 
-  // Remove a laptop by model
   removeLaptop(model: string) {
-    this.laptopList = this.laptopList.filter(laptop => laptop.model !== model);
+    this.laptopService.removeLaptop(model);
+    this.laptopList = this.laptopService.getLaptops(); // Refresh the list
   }
 }
