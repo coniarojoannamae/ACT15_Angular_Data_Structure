@@ -1,41 +1,40 @@
 import { Component } from '@angular/core';
+import { ArtistService } from './artist.service';
 
 @Component({
   selector: 'app-artist-list',
   templateUrl: './artist-list.component.html',
-  styleUrl: './artist-list.component.css'
+  styleUrls: ['./artist-list.component.css']
 })
 export class ArtistListComponent {
-  // Initial list of famous artists
-  artistList: { name: string, born: string, died: string, nationality: string, famousWorks: string[] }[] = [
-    { name: 'Leonardo da Vinci', born: '1452', died: '1519', nationality: 'Italian', famousWorks: ['Mona Lisa', 'The Last Supper'] },
-    { name: 'Vincent van Gogh', born: '1853', died: '1890', nationality: 'Dutch', famousWorks: ['Starry Night', 'Sunflowers'] },
-    { name: 'Frida Kahlo', born: '1907', died: '1954', nationality: 'Mexican', famousWorks: ['The Two Fridas', 'Self-Portrait with Thorn Necklace'] }
-  ];
-
-  // Initialize new artist with default values
+  artistList: { name: string, born: string, died: string, nationality: string, famousWorks: string[] }[] = [];
   newArtist = { name: '', born: '', died: '', nationality: '', famousWorks: '' };
 
-  // Add a new artist to the list
+  constructor(private artistService: ArtistService) {}
+
+  ngOnInit() {
+    this.artistList = this.artistService.getArtists();
+  }
+
   addArtist() {
     const famousWorksArray = this.newArtist.famousWorks.split(',').map(work => work.trim());
     if (this.newArtist.name.trim() && this.newArtist.born.trim() && this.newArtist.nationality.trim()) {
-      this.artistList.push({
+      this.artistService.addArtist({
         name: this.newArtist.name,
         born: this.newArtist.born,
-        died: this.newArtist.died || 'N/A',  // Mark "N/A" if the artist is alive
+        died: this.newArtist.died || 'N/A', // Default to 'N/A' if no death year provided
         nationality: this.newArtist.nationality,
         famousWorks: famousWorksArray
       });
-      this.newArtist = { name: '', born: '', died: '', nationality: '', famousWorks: '' };  // Reset the form
+      this.newArtist = { name: '', born: '', died: '', nationality: '', famousWorks: '' }; // Reset the form
     } else {
       alert('Please fill in all the required fields.');
     }
+    this.artistList = this.artistService.getArtists(); // Refresh the list
   }
 
-  // Remove an artist by name
   removeArtist(name: string) {
-    this.artistList = this.artistList.filter(artist => artist.name !== name);
+    this.artistService.removeArtist(name);
+    this.artistList = this.artistService.getArtists(); // Refresh the list
   }
-
 }
