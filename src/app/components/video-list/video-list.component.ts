@@ -1,32 +1,32 @@
 import { Component } from '@angular/core';
+import { VideoService } from './video.service';
+import { Video } from './video.model';
 
 @Component({
   selector: 'app-video-list',
   templateUrl: './video-list.component.html',
-  styleUrl: './video-list.component.css'
+  styleUrls: ['./video-list.component.css']
 })
 export class VideoListComponent {
-  // Initial list of videos
-  videoList: { videoTitle: string, category: string, duration: number, director: string }[] = [
-    { videoTitle: 'Inception', category: 'Science Fiction', duration: 148, director: 'Christopher Nolan' },
-    { videoTitle: 'The Godfather', category: 'Crime', duration: 175, director: 'Francis Ford Coppola' },
-  ];
-
-  // Initialize new video with default values
+  videoList: { videoTitle: string, category: string, duration: number, director: string }[] = [];
   newVideo = { videoTitle: '', category: '', duration: 0, director: '' };
 
-  // Add a new video to the list
+  constructor(private videoService: VideoService) {
+    this.videoList = this.videoService.getVideoList(); // Load video list from service
+  }
+
   addVideo() {
     if (this.newVideo.videoTitle.trim() && this.newVideo.category.trim() && this.newVideo.director.trim() && this.newVideo.duration > 0) {
-      this.videoList.push({ ...this.newVideo });
-      this.newVideo = { videoTitle: '', category: '', duration: 0, director: '' };  // Reset the form
+      this.videoService.addVideo({ ...this.newVideo });
+      this.newVideo = { videoTitle: '', category: '', duration: 0, director: '' }; // Reset the form
+      this.videoList = this.videoService.getVideoList(); // Refresh the list
     } else {
       alert('Please fill in all the details for the video.');
     }
   }
 
-  // Remove a video by videoTitle
   removeVideo(videoTitle: string) {
-    this.videoList = this.videoList.filter(video => video.videoTitle !== videoTitle);
+    this.videoService.removeVideo(videoTitle);
+    this.videoList = this.videoService.getVideoList(); // Refresh the list
   }
 }
