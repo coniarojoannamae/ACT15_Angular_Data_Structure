@@ -1,39 +1,39 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ExerciseService } from './exercise.service';
 
 @Component({
   selector: 'app-exercise-list',
   templateUrl: './exercise-list.component.html',
-  styleUrl: './exercise-list.component.css'
+  styleUrls: ['./exercise-list.component.css']
 })
-export class ExerciseListComponent {
-  // Initial list of exercises for the workout routine
-  exerciseList: { name: string, type: string, duration: string, sets: number, reps: number }[] = [
-    { name: 'Push-ups', type: 'Strength', duration: 'N/A', sets: 3, reps: 15 },
-    { name: 'Running', type: 'Cardio', duration: '20 mins', sets: 1, reps: 1 },
-    { name: 'Squats', type: 'Strength', duration: 'N/A', sets: 3, reps: 20 }
-  ];
-
-  // Initialize new exercise with default values
+export class ExerciseListComponent implements OnInit {
+  exerciseList: { name: string, type: string, duration: string, sets: number, reps: number }[] = [];
   newExercise = { name: '', type: '', duration: '', sets: 0, reps: 0 };
 
-  // Add a new exercise to the list
+  constructor(private exerciseService: ExerciseService) {}
+
+  ngOnInit() {
+    this.exerciseList = this.exerciseService.getExercises();
+  }
+
   addExercise() {
     if (this.newExercise.name.trim() && this.newExercise.type.trim() && this.newExercise.sets > 0 && this.newExercise.reps >= 0) {
-      this.exerciseList.push({
+      this.exerciseService.addExercise({
         name: this.newExercise.name,
         type: this.newExercise.type,
-        duration: this.newExercise.duration || 'N/A',  // Duration can be optional for strength exercises
+        duration: this.newExercise.duration || 'N/A',  // Duration is optional for some exercises
         sets: this.newExercise.sets,
         reps: this.newExercise.reps
       });
-      this.newExercise = { name: '', type: '', duration: '', sets: 0, reps: 0 };  // Reset the form
+      this.newExercise = { name: '', type: '', duration: '', sets: 0, reps: 0 }; // Reset the form
     } else {
       alert('Please fill in all the required fields.');
     }
+    this.exerciseList = this.exerciseService.getExercises(); // Refresh the list
   }
 
-  // Remove an exercise by name
   removeExercise(name: string) {
-    this.exerciseList = this.exerciseList.filter(exercise => exercise.name !== name);
+    this.exerciseService.removeExercise(name);
+    this.exerciseList = this.exerciseService.getExercises(); // Refresh the list
   }
 }
