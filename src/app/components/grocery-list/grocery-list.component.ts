@@ -1,26 +1,37 @@
 import { Component } from '@angular/core';
-
+import { GroceryListService } from './grocery-list.service';
+import { GroceryItem } from './grocery-item.model.';
 @Component({
   selector: 'app-grocery-list',
   templateUrl: './grocery-list.component.html',
-  styleUrl: './grocery-list.component.css'
+  styleUrls: ['./grocery-list.component.css'],
 })
 export class GroceryListComponent {
-  groceryList: { name: string, quantity: number, category: string }[] = [
-    { name: 'Apples', quantity: 5, category: 'Fruits' },
-    { name: 'Milk', quantity: 2, category: 'Dairy' },
-    { name: 'Carrots', quantity: 1, category: 'Vegetables' }
-  ];
+  groceryList: { name: string; quantity: number; category: string }[] = [];
   newGroceryItem = { name: '', quantity: 0, category: '' };
+
+  constructor(private groceryListService: GroceryListService) {
+    this.groceryList = this.groceryListService.getGroceryList();
+  }
+
+  // Add a new grocery item
   addGroceryItem() {
-    if (this.newGroceryItem.name.trim() && this.newGroceryItem.quantity > 0 && this.newGroceryItem.category.trim()) {
-      this.groceryList.push({ ...this.newGroceryItem });
-      this.newGroceryItem = { name: '', quantity: 0, category: '' };  // Reset the form
+    if (
+      this.newGroceryItem.name.trim() &&
+      this.newGroceryItem.quantity > 0 &&
+      this.newGroceryItem.category.trim()
+    ) {
+      this.groceryListService.addGroceryItem({ ...this.newGroceryItem });
+      this.newGroceryItem = { name: '', quantity: 0, category: '' }; // Reset the form
     } else {
       alert('Please enter valid details for the grocery item.');
     }
+    this.groceryList = this.groceryListService.getGroceryList(); // Update the list
   }
+
+  // Remove a grocery item by name
   removeGroceryItem(itemName: string) {
-    this.groceryList = this.groceryList.filter(item => item.name !== itemName);
+    this.groceryListService.removeGroceryItem(itemName);
+    this.groceryList = this.groceryListService.getGroceryList(); // Update the list
   }
 }
