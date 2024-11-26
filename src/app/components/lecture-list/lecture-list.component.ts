@@ -1,26 +1,39 @@
 import { Component } from '@angular/core';
+import { LectureListService } from './lecture-list.service';
+import { Lecture } from './lecture.model';
 
 @Component({
   selector: 'app-lecture-list',
   templateUrl: './lecture-list.component.html',
-  styleUrl: './lecture-list.component.css'
+  styleUrls: ['./lecture-list.component.css'],
 })
 export class LectureListComponent {
-  lectures: { lectureName: string, date: string, time: string, topic: string }[] = [
-    { lectureName: 'Intro to Angular', date: '2024-10-12', time: '10:00 AM', topic: 'Basics of Angular' },
-    { lectureName: 'Advanced Angular', date: '2024-10-13', time: '2:00 PM', topic: 'Component Interaction' },
-  ];
+  lectures: { lectureName: string; date: string; time: string; topic: string }[] = [];
   newLecture = { lectureName: '', date: '', time: '', topic: '' };
 
+  constructor(private lectureService: LectureListService) {
+    this.lectures = this.lectureService.getLectures();
+  }
+
+  // Add a new lecture
   addLecture() {
-    if (this.newLecture.lectureName.trim() && this.newLecture.date && this.newLecture.time.trim() && this.newLecture.topic.trim()) {
-      this.lectures.push({ ...this.newLecture });
-      this.newLecture = { lectureName: '', date: '', time: '', topic: '' };  // Reset the form
+    if (
+      this.newLecture.lectureName.trim() &&
+      this.newLecture.date &&
+      this.newLecture.time.trim() &&
+      this.newLecture.topic.trim()
+    ) {
+      this.lectureService.addLecture({ ...this.newLecture });
+      this.newLecture = { lectureName: '', date: '', time: '', topic: '' }; // Reset the form
+      this.lectures = this.lectureService.getLectures(); // Refresh the list
     } else {
       alert('Please fill in all the details for the lecture.');
     }
   }
+
+  // Remove a lecture
   removeLecture(lectureName: string) {
-    this.lectures = this.lectures.filter(lecture => lecture.lectureName !== lectureName);
+    this.lectureService.removeLecture(lectureName);
+    this.lectures = this.lectureService.getLectures(); // Refresh the list
   }
 }
