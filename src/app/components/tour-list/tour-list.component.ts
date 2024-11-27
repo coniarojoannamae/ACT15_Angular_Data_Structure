@@ -1,36 +1,37 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { TourService } from './tour.service';
 
 @Component({
   selector: 'app-tour-list',
   templateUrl: './tour-list.component.html',
-  styleUrl: './tour-list.component.css'
+  styleUrls: ['./tour-list.component.css']
 })
-export class TourListComponent {
-  // Initial list of tour dates
-  tourList: { date: Date; location: string; venue: string }[] = [
-    { date: new Date('2024-11-15'), location: 'New York, NY', venue: 'Madison Square Garden' },
-    { date: new Date('2024-11-20'), location: 'Los Angeles, CA', venue: 'Hollywood Bowl' },
-    { date: new Date('2024-12-01'), location: 'Chicago, IL', venue: 'United Center' }
-  ];
-
-  // Initialize new tour date with default values
+export class TourListComponent implements OnInit {
+  tourList: { date: Date; location: string; venue: string }[] = [];
   newTour = { date: '', location: '', venue: '' };
 
-  // Add a new tour date to the list
+  constructor(private tourService: TourService) {}
+
+  ngOnInit() {
+    this.tourList = this.tourService.getTourList();
+  }
+
   addTour() {
     if (this.newTour.date && this.newTour.location.trim() && this.newTour.venue.trim()) {
-      this.tourList.push({
+      this.tourService.addTour({
         date: new Date(this.newTour.date),
         location: this.newTour.location,
         venue: this.newTour.venue
       });
-      this.newTour = { date: '', location: '', venue: '' };  // Reset the form
+      this.newTour = { date: '', location: '', venue: '' }; // Reset the form
+      this.tourList = this.tourService.getTourList(); // Refresh the list
     } else {
       alert('Please fill in all the required fields.');
     }
   }
-  // Remove a tour date by date
+
   removeTour(date: Date) {
-    this.tourList = this.tourList.filter(tour => tour.date !== date);
+    this.tourService.removeTour(date);
+    this.tourList = this.tourService.getTourList(); // Refresh the list
   }
 }
