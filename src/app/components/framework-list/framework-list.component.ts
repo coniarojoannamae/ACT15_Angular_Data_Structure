@@ -1,37 +1,41 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FrameworkService } from './framework.service';
 
 @Component({
   selector: 'app-framework-list',
   templateUrl: './framework-list.component.html',
-  styleUrl: './framework-list.component.css'
+  styleUrls: ['./framework-list.component.css'],
 })
-export class FrameworkListComponent {
-// Initial list of frameworks
-  frameworksList: { name: string; language: string; description: string }[] = [
-    { name: 'Angular', language: 'TypeScript', description: 'A platform for building mobile and desktop web applications.' },
-    { name: 'React', language: 'JavaScript', description: 'A JavaScript library for building user interfaces.' },
-    { name: 'Vue', language: 'JavaScript', description: 'A progressive framework for building user interfaces.' }
-  ];
-
-  // Initialize new framework with default values
+export class FrameworkListComponent implements OnInit {
+  frameworksList: { name: string; language: string; description: string }[] = [];
   newFramework = { name: '', language: '', description: '' };
 
-  // Add a new framework to the list
+  constructor(private frameworkService: FrameworkService) {}
+
+  ngOnInit() {
+    this.frameworksList = this.frameworkService.getFrameworksList();
+  }
+
   addFramework() {
-    if (this.newFramework.name.trim() && this.newFramework.language.trim() && this.newFramework.description.trim()) {
-      this.frameworksList.push({
+    if (
+      this.newFramework.name.trim() &&
+      this.newFramework.language.trim() &&
+      this.newFramework.description.trim()
+    ) {
+      this.frameworkService.addFramework({
         name: this.newFramework.name,
         language: this.newFramework.language,
-        description: this.newFramework.description
+        description: this.newFramework.description,
       });
-      this.newFramework = { name: '', language: '', description: '' };  // Reset the form
+      this.newFramework = { name: '', language: '', description: '' }; // Reset the form
+      this.frameworksList = this.frameworkService.getFrameworksList(); // Refresh the list
     } else {
       alert('Please fill in all the required fields.');
     }
   }
 
-  // Remove a framework by name
   removeFramework(name: string) {
-    this.frameworksList = this.frameworksList.filter(framework => framework.name !== name);
+    this.frameworkService.removeFramework(name);
+    this.frameworksList = this.frameworkService.getFrameworksList(); // Refresh the list
   }
 }
