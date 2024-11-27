@@ -1,37 +1,37 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { EventService } from './event.service';
 
 @Component({
   selector: 'app-event-list',
   templateUrl: './event-list.component.html',
-  styleUrl: './event-list.component.css'
+  styleUrls: ['./event-list.component.css'],
 })
-export class EventListComponent {
-  // Initial list of upcoming events
-  eventList: { name: string; date: Date; location: string }[] = [
-    { name: 'Concert in the Park', date: new Date('2024-11-15'), location: 'Central Park, NYC' },
-    { name: 'Art Exhibition', date: new Date('2024-11-20'), location: 'Art Gallery, San Francisco' },
-    { name: 'Tech Conference', date: new Date('2024-12-01'), location: 'Convention Center, Chicago' }
-  ];
-
-  // Initialize new event with default values
+export class EventListComponent implements OnInit {
+  eventList: { name: string; date: Date; location: string }[] = [];
   newEvent = { name: '', date: '', location: '' };
 
-  // Add a new event to the list
+  constructor(private eventService: EventService) {}
+
+  ngOnInit() {
+    this.eventList = this.eventService.getEventList();
+  }
+
   addEvent() {
     if (this.newEvent.name.trim() && this.newEvent.date && this.newEvent.location.trim()) {
-      this.eventList.push({
+      this.eventService.addEvent({
         name: this.newEvent.name,
         date: new Date(this.newEvent.date),
-        location: this.newEvent.location
+        location: this.newEvent.location,
       });
-      this.newEvent = { name: '', date: '', location: '' };  // Reset the form
+      this.newEvent = { name: '', date: '', location: '' }; // Reset the form
+      this.eventList = this.eventService.getEventList(); // Refresh the list
     } else {
       alert('Please fill in all the required fields.');
     }
   }
 
-  // Remove an event by name
   removeEvent(name: string) {
-    this.eventList = this.eventList.filter(event => event.name !== name);
+    this.eventService.removeEvent(name);
+    this.eventList = this.eventService.getEventList(); // Refresh the list
   }
 }
