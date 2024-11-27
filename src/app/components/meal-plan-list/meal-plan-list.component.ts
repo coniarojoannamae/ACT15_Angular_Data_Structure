@@ -1,37 +1,37 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { MealPlanService } from './meal-plan.service';
 
 @Component({
   selector: 'app-meal-plan-list',
   templateUrl: './meal-plan-list.component.html',
-  styleUrl: './meal-plan-list.component.css'
+  styleUrls: ['./meal-plan-list.component.css']
 })
-export class MealPlanListComponent {
-  // Initial list of meals in the weekly plan
-  mealPlanList: { day: string, mealType: string, mealDescription: string }[] = [
-    { day: 'Monday', mealType: 'Breakfast', mealDescription: 'Oatmeal with fruits' },
-    { day: 'Monday', mealType: 'Lunch', mealDescription: 'Grilled chicken salad' },
-    { day: 'Monday', mealType: 'Dinner', mealDescription: 'Spaghetti with garlic bread' }
-  ];
-
-  // Initialize new meal with default values
+export class MealPlanListComponent implements OnInit {
+  mealPlanList: { day: string, mealType: string, mealDescription: string }[] = [];
   newMeal = { day: '', mealType: '', mealDescription: '' };
 
-  // Add a new meal to the weekly plan
+  constructor(private mealPlanService: MealPlanService) {}
+
+  ngOnInit() {
+    this.mealPlanList = this.mealPlanService.getMealPlans();
+  }
+
   addMeal() {
     if (this.newMeal.day.trim() && this.newMeal.mealType.trim() && this.newMeal.mealDescription.trim()) {
-      this.mealPlanList.push({
+      this.mealPlanService.addMeal({
         day: this.newMeal.day,
         mealType: this.newMeal.mealType,
         mealDescription: this.newMeal.mealDescription
       });
-      this.newMeal = { day: '', mealType: '', mealDescription: '' };  // Reset the form
+      this.newMeal = { day: '', mealType: '', mealDescription: '' }; // Reset the form
     } else {
       alert('Please fill in all the required fields.');
     }
+    this.mealPlanList = this.mealPlanService.getMealPlans(); // Refresh the list
   }
 
-  // Remove a meal by description
   removeMeal(mealDescription: string) {
-    this.mealPlanList = this.mealPlanList.filter(meal => meal.mealDescription !== mealDescription);
+    this.mealPlanService.removeMeal(mealDescription);
+    this.mealPlanList = this.mealPlanService.getMealPlans(); // Refresh the list
   }
 }
