@@ -1,36 +1,37 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { PresentationService } from './presentation.service';
 
 @Component({
   selector: 'app-presentation-list',
   templateUrl: './presentation-list.component.html',
-  styleUrl: './presentation-list.component.css'
+  styleUrls: ['./presentation-list.component.css']
 })
-export class PresentationListComponent {
-// Initial list of presentation topics
-  presentationList: { topic: string; presenter: string; date: Date }[] = [
-    { topic: 'Introduction to Angular', presenter: 'John Doe', date: new Date('2024-11-01') },
-    { topic: 'Understanding TypeScript', presenter: 'Jane Smith', date: new Date('2024-11-05') },
-  ];
-
-  // Initialize new presentation with default values
+export class PresentationListComponent implements OnInit {
+  presentationList: { topic: string; presenter: string; date: Date }[] = [];
   newPresentation = { topic: '', presenter: '', date: '' };
 
-  // Add a new presentation topic to the list
+  constructor(private presentationService: PresentationService) {}
+
+  ngOnInit() {
+    this.presentationList = this.presentationService.getPresentationList();
+  }
+
   addPresentation() {
     if (this.newPresentation.topic.trim() && this.newPresentation.presenter.trim() && this.newPresentation.date) {
-      this.presentationList.push({
+      this.presentationService.addPresentation({
         topic: this.newPresentation.topic,
         presenter: this.newPresentation.presenter,
         date: new Date(this.newPresentation.date)
       });
-      this.newPresentation = { topic: '', presenter: '', date: '' };  // Reset the form
+      this.newPresentation = { topic: '', presenter: '', date: '' }; // Reset the form
+      this.presentationList = this.presentationService.getPresentationList(); // Refresh the list
     } else {
       alert('Please fill in all the required fields.');
     }
   }
 
-  // Remove a presentation topic by topic name
   removePresentation(topic: string) {
-    this.presentationList = this.presentationList.filter(presentation => presentation.topic !== topic);
+    this.presentationService.removePresentation(topic);
+    this.presentationList = this.presentationService.getPresentationList(); // Refresh the list
   }
 }
